@@ -1,0 +1,4 @@
+clientId,firstName,middleName,familyName,email,role,telephoneNumber,birthDate,recordCreationDate,lastContactedDate,clientClassification
+1,John,A,Smith,john.smith@example.com,Manager,123-456-7890,1990-01-01,2022-01-01,2022-10-15,Gold
+2,Alice,B,Jones,alice.jones@example.com,Employee,987-654-3210,1985-05-15,2022-01-02,2022-09-20,Silver
+3,Michael,,Johnson,michael.johnson@example.com,Manager,111-222-3333,1988-11-30,2022-01-03,2022-11-05,Platinum

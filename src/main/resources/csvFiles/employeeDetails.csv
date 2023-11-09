@@ -1,0 +1,4 @@
+employeeId,firstName,middleName,familyName,email,role,roleId,telephoneNumber
+1,Mark,A,Johnson,mark.johnson@example.com,Manager,101,111-222-3333
+2,Linda,B,Williams,linda.williams@example.com,Employee,102,222-333-4444
+3,David,C,Jones,david.jones@example.com,Manager,101,333-444-5555

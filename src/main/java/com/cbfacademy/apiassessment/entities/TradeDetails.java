@@ -9,10 +9,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TradeDetails {
-    private Long id;
-    private String timeOfRequest;
-    private int sizeOfTrade;
-    private int quantity;
-    private double price;
-    private String side;
+    private Long tradeDetailsId;
+    private String accountNumber;
+    private String timeOfExecution;
+    private String product;
+    private String contractingEntity;
 }

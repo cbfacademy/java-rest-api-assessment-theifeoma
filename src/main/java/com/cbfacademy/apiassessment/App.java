@@ -1,8 +1,6 @@
 package com.cbfacademy.apiassessment;
 
 import com.cbfacademy.apiassessment.entities.Client;
-import com.cbfacademy.apiassessment.helpers.Csv;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;

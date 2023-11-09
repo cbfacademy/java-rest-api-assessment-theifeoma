@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClientAddress {
-    private Long id;
+    private Long clientAddressId;
     private Long addressHouseNumber;
     private String addressLineOne;
     private String addressLineTwo;

@@ -1,0 +1,4 @@
+legalDetailsId,lei,riskRating,nextReviewDate,clientStatus,regulatorName,regulatorId,capacity
+1,LEI123,High,2023-01-01,Active,Regulator1,1001,Full
+2,LEI456,Medium,2023-02-01,Inactive,Regulator2,1002,Partial
+3,LEI789,Low,2023-03-01,Active,Regulator3,1003,Limited
