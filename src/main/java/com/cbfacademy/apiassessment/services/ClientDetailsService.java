@@ -21,11 +21,7 @@ public class ClientDetailsService{
     }
 
     public List<ClientDetails> getAllClients() throws IOException {
-        List<Object> clients = clientDtoRepository.getAll();
-        return clients.stream()
-                .filter(client -> client instanceof ClientDetails)
-                .map(client -> (ClientDetails) client)
-                .collect(Collectors.toList());
+        return clientDtoRepository.getAll();
     }
 
     public void addNewClient(ClientDetails client) throws IOException {
@@ -34,7 +30,7 @@ public class ClientDetailsService{
             throw new IllegalStateException("Email is already taken or is not original");
         }
         // Add the new client to the repository
-        List<Object> clients = clientDtoRepository.getAll();
+        List<ClientDetails> clients = clientDtoRepository.getAll();
         clients.add(client);
         clientDtoRepository.save(clients);
     }
@@ -47,7 +43,7 @@ public class ClientDetailsService{
         }
 
         // Remove the client by ID and save the updated data
-        List<Object> clients = clientDtoRepository.getAll();
+        List<ClientDetails> clients = clientDtoRepository.getAll();
         clients.removeIf(client -> {
             if (client instanceof ClientDetails) {
                 return ((ClientDetails) client).getClientId().equals(clientId);
@@ -58,7 +54,7 @@ public class ClientDetailsService{
     }
 
     public List<ClientDetails> sortAllClientsByRole(String role) throws IOException {
-        List<Object> clients = clientDtoRepository.getAll();
+        List<ClientDetails> clients = clientDtoRepository.getAll();
         List<ClientDetails> clientsWithRole = clients.stream()
                 .filter(client -> client instanceof ClientDetails && ((ClientDetails) client).getRole().equalsIgnoreCase(role))
                 .map(client -> (ClientDetails) client)
@@ -74,7 +70,7 @@ public class ClientDetailsService{
     }
 
     public void updateClient(Long clientId, ClientDetails updatedClient) throws IOException {
-        List<Object> clients = clientDtoRepository.getAll();
+        List<ClientDetails> clients = clientDtoRepository.getAll();
 
         boolean clientExists = false;
 

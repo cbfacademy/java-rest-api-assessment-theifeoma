@@ -63,6 +63,35 @@ public class CSVDataConverter {
         }
     }
 
+    public void convert2CSVToJson(List<String> csvFiles, String jsonFile) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Object> dataList = new ArrayList<>();
+
+        // Loop through each CSV file and parse its data into a List of objects
+        for (String csvFile : csvFiles) {
+            try (Reader reader = new FileReader(csvFile)) {
+                // Parse CSV data into a List of objects based on the file type
+                if (csvFile.endsWith("clientDetails.csv")) {
+                    dataList.addAll(parseCsvToClientDetails(reader));
+                } else if (csvFile.endsWith("clientAddress.csv")) {
+                } else {
+                    // Handle unrecognized CSV file types if needed
+                    System.out.println("Unrecognized CSV file: " + csvFile);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Convert List of objects to JSON
+        try (FileWriter fileWriter = new FileWriter(jsonFile)) {
+            String jsonData = objectMapper.writeValueAsString(dataList);
+            fileWriter.write(jsonData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static List<ClientDetails> parseCsvToClientDetails(Reader reader) throws IOException {
         List<ClientDetails> clientDetailsList = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(reader)) {
