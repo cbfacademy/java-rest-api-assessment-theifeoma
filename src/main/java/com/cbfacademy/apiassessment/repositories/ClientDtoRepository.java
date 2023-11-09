@@ -4,6 +4,8 @@ import com.cbfacademy.apiassessment.entities.ClientDetails;
 import com.cbfacademy.apiassessment.helpers.CSVDataConverter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,11 +13,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Repository
 public class ClientDtoRepository {
     private File jsonFile;
     private ObjectMapper objectMapper;
 
-    public ClientDtoRepository(String filePath) {
+    private String filepath;
+
+    public ClientDtoRepository(@Value("${json.file.path}") String filePath) {
         this.jsonFile = new File(filePath);
         this.objectMapper = new ObjectMapper();
 
@@ -37,6 +42,15 @@ public class ClientDtoRepository {
 
     public void save(List<Object> data) throws IOException {
         objectMapper.writeValue(jsonFile, data);
+    }
+
+    public boolean existsById(Long clientId) throws IOException {
+        List<Object> clients = getAll();
+
+        return clients.stream()
+                .filter(client -> client instanceof ClientDetails && ((ClientDetails) client).getClientId().equals(clientId))
+                .findFirst()
+                .isPresent();
     }
 
     public List<Object> findAllByRole(String role) throws IOException {

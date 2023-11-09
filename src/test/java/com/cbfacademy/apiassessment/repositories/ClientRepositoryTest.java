@@ -1,28 +1,28 @@
 package com.cbfacademy.apiassessment.repositories;
 
-import com.cbfacademy.apiassessment.entities.Client;
-import org.junit.jupiter.api.BeforeEach;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+//import com.cbfacademy.apiassessment.entities.Client;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 
-public class ClientRepositoryTest {
-    private static final String CSV_FILE_PATH = "test.csv";
-
-    @Mock
-    private Csv<Client> clientCsv;
-
-    @InjectMocks
-    private ClientRepositoryImpl clientRepository;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+//public class ClientRepositoryTest {
+//    private static final String CSV_FILE_PATH = "test.csv";
+//
+//    @Mock
+//    private Csv<Client> clientCsv;
+//
+//    @InjectMocks
+//    private ClientRepositoryImpl clientRepository;
+//
+//    @BeforeEach
+//    void setUp() {
+//        MockitoAnnotations.openMocks(this);
+//    }
 
 //    @Test
 //    void testSaveClientt() {
@@ -63,4 +63,4 @@ public class ClientRepositoryTest {
 //        // Assert
 //        verify(clientCsv, times(1)).addNewClientToClientCsv(client);
 //    }
-}
+//}
