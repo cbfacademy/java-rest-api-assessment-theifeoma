@@ -12,7 +12,7 @@ public interface ClientMapper {
 
     ClientMapper INSTANCE = Mappers.getMapper(ClientMapper.class);
 
-    @Mapping(source = "clientAddressId", target = "addressId")
+    @Mapping(source = "clientAddress.clientAddressId", target = "addressId")
     ClientDto mapToClientDto(ClientDetails clientDetails, ClientAddress clientAddress);
 
     @Mapping(source = "addressId", target = "clientAddressId")
