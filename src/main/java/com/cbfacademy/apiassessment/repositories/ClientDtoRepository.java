@@ -20,8 +20,8 @@ public class ClientDtoRepository {
     private File jsonFile;
     private ObjectMapper objectMapper;
 
-    List<String> csvTestFiles = Arrays.asList("resources/csvFiles/clientAddress.csv", "src/main/resources/csvFiles/clientDetails.csv");
-    List<String> csvFiles = Arrays.asList("resources/csvFiles/clientAddress.csv", "src/main/resources/csvFiles/clientDetails.csv", "src/main/resources/csvFiles/employeeDetails.csv", "src/main/resources/csvFiles/legalDetails.csv", "src/main/resources/csvFiles/tradeDetails.csv");
+    List<String> csvTestFiles = Arrays.asList("resources/csvFiles/clientAddress.csv", "resources/csvFiles/clientDetails.csv");
+    List<String> csvFiles = Arrays.asList("resources/csvFiles/clientAddress.csv", "resources/csvFiles/clientDetails.csv", "resources/csvFiles/employeeDetails.csv", "resources/csvFiles/legalDetails.csv", "resources/csvFiles/tradeDetails.csv");
     String jsonRepoFile = "resources/jsonFiles/repo.json";
     String jsonRepoTestFile = "resources/jsonFiles/test.json";
 
