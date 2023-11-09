@@ -18,7 +18,8 @@ public class ClientDtoRepository {
     private File jsonFile;
     private ObjectMapper objectMapper;
 
-    private String filepath;
+    List<String> csvFiles = Arrays.asList("src/main/resources/csvFiles/clientAddress.csv", "src/main/resources/csvFiles/clientDetails.csv", "src/main/resources/csvFiles/employeeDetails.csv", "src/main/resources/csvFiles/legalDetails.csv", "src/main/resources/csvFiles/tradeDetails.csv");
+    String jsonRepoFile = "src/main/resources/jsonFiles/repo.json";
 
     public ClientDtoRepository(@Value("${json.file.path}") String filePath) {
         this.jsonFile = new File(filePath);
@@ -29,11 +30,8 @@ public class ClientDtoRepository {
     }
 
     private void initializeRepository() {
-        List<String> csvFiles = Arrays.asList("clientDetails.csv", "clientAddress.csv", "employeeDetails.csv",
-                "legalDetails.csv", "tradeDetails.csv");
-        String jsonFile = "data.json";
         CSVDataConverter csvDataConverter = new CSVDataConverter();
-        csvDataConverter.convertCSVToJson(csvFiles, jsonFile);
+        csvDataConverter.convertCSVToJson(csvFiles, jsonRepoFile);
     }
 
     public List<Object> getAll() throws IOException {
@@ -67,5 +65,4 @@ public class ClientDtoRepository {
                 .findFirst()
                 .orElse(null);
     }
-
 }

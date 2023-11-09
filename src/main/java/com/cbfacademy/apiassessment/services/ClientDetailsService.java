@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +28,6 @@ public class ClientDetailsService{
                 .collect(Collectors.toList());
     }
 
-
     public void addNewClient(ClientDetails client) throws IOException {
         ClientDetails existingClient = (ClientDetails) clientDtoRepository.findClientDetailsByEmail(client.getEmail());
         if (existingClient != null) {
@@ -40,7 +38,6 @@ public class ClientDetailsService{
         clients.add(client);
         clientDtoRepository.save(clients);
     }
-
 
     public void deleteClient(Long clientId) throws IOException {
         boolean clientExists = clientDtoRepository.existsById(clientId);
