@@ -1,7 +1,10 @@
 package com.cbfacademy.apiassessment.services;
 
+import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.cbfacademy.apiassessment.entities.ClientDetails;
 import com.cbfacademy.apiassessment.repositories.ClientDtoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,7 @@ import java.util.stream.Collectors;
 public class ClientDetailsService{
 
     private final ClientDtoRepository clientDtoRepository;
+    private static final Logger log = LoggerFactory.getLogger(ClientDetailsService.class);
 
     @Autowired
     public ClientDetailsService(ClientDtoRepository clientDtoRepository){
@@ -22,6 +26,11 @@ public class ClientDetailsService{
 
     public List<ClientDetails> getAllClients() throws IOException {
         return clientDtoRepository.getAll();
+    }
+
+    public List<ClientDto> getAllDto() throws IOException{
+        log.info("Inside Service Layer");
+        return clientDtoRepository.getAllDto();
     }
 
     public void addNewClient(ClientDetails client) throws IOException {

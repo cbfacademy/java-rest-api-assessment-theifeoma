@@ -1,7 +1,5 @@
 package com.cbfacademy.apiassessment.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Getter
@@ -11,34 +9,15 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class ClientDetails {
-    @JsonProperty("clientId")
     private Long clientId;
-    @JsonProperty("firstName")
     private String firstName;
-
-    @JsonProperty("middleName")
     private String middleName;
-
-    @JsonProperty("familyName")
     private String familyName;
-
-    @JsonProperty("email")
     private String email;
-
-    @JsonProperty("role")
     private String role;
-
-    @JsonProperty("telephoneNumber")
     private String telephoneNumber;
-    @JsonProperty("birthDate")
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private String birthDate;
-    @JsonProperty("recordCreationDate")
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private String recordCreationDate;
-    @JsonProperty("lastContactedDate")
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private String lastContactedDate;
-    @JsonProperty("clientClassification")
     private String clientClassification;
 }

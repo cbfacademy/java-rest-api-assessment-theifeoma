@@ -1,5 +1,7 @@
 package com.cbfacademy.apiassessment.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Getter
@@ -9,26 +11,50 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class ClientDto {
-    private Long clientId;
-    private String firstName;
-    private String middleName;
-    private String familyName;
-    private String email;
-    private String role;
-    private String telephoneNumber;
-    private String birthDate;
-    private String recordCreationDate;
-    private String lastContactedDate;
-    private String clientClassification;
-    private Long addressId;
-    private Long addressHouseNumber;
-    private String addressLineOne;
-    private String addressLineTwo;
-    private String city;
-    private String state;
-    private String postcode;
-    private String country;
-    private String addressTelephone;
-    private String addressEmail;
-    private String addressUrl;
-}
+        @JsonProperty("clientId")
+        private Long clientId;
+        @JsonProperty("firstName")
+        private String firstName;
+        @JsonProperty("middleName")
+        private String middleName;
+        @JsonProperty("familyName")
+        private String familyName;
+        @JsonProperty("email")
+        private String email;
+        @JsonProperty("role")
+        private String role;
+        @JsonProperty("telephoneNumber")
+        private String telephoneNumber;
+        @JsonProperty("birthDate")
+        @JsonFormat(pattern = "yyyy-MM-dd")
+        private String birthDate;
+        @JsonProperty("recordCreationDate")
+        @JsonFormat(pattern = "yyyy-MM-dd")
+        private String recordCreationDate;
+        @JsonProperty("lastContactedDate")
+        @JsonFormat(pattern = "yyyy-MM-dd")
+        private String lastContactedDate;
+        @JsonProperty("clientClassification")
+        private String clientClassification;
+
+        @JsonProperty("addressHouseNumber")
+        private Long addressHouseNumber;
+        @JsonProperty("addressLineOne")
+        private String addressLineOne;
+        @JsonProperty("addressLineTwo")
+        private String addressLineTwo;
+        @JsonProperty("city")
+        private String city;
+        @JsonProperty("state")
+        private String state;
+        @JsonProperty("postcode")
+        private String postcode;
+        @JsonProperty("country")
+        private String country;
+        @JsonProperty("addressTelephone")
+        private String addressTelephone;
+        @JsonProperty("addressEmail")
+        private String addressEmail;
+        @JsonProperty("addressUrl")
+        private String addressUrl;
+    }

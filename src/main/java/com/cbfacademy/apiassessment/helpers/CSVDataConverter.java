@@ -1,14 +1,23 @@
 package com.cbfacademy.apiassessment.helpers;
 
+import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.cbfacademy.apiassessment.entities.*;
+import com.cbfacademy.apiassessment.mappers.ClientMapper;
+import com.cbfacademy.apiassessment.mappers.ClientMapperImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CSVDataConverter {
-   public void convertCSVToJson(String csvFile, String jsonFile){
+
+    private static final Logger log = LoggerFactory.getLogger(CSVDataConverter.class);
+
+    public void convertCSVToJson(String csvFile, String jsonFile){
        ObjectMapper objectMapper = new ObjectMapper();
        List<ClientDetails> clientDetailsList = new ArrayList<>();
 
@@ -91,6 +100,56 @@ public class CSVDataConverter {
             e.printStackTrace();
         }
     }
+
+    public void convertCSVToDtoToJson(List<String> csvFiles, String jsonFile) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<ClientDto> clientDtos = new ArrayList<>();
+
+        ClientMapper clientMapper = new ClientMapperImpl();
+
+        List<ClientDetails> clientDetailsList = new ArrayList<>();
+        List<ClientAddress> clientAddressList = new ArrayList<>();
+
+        // Loop through each CSV file and parse its data into the respective class lists
+        for (String csvFile : csvFiles) {
+            try (Reader reader = new FileReader(csvFile)) {
+                // Parse CSV data into the respective lists based on the file type
+                if (csvFile.endsWith("clientDetails.csv")) {
+                    clientDetailsList.addAll(parseCsvToClientDetails(reader));
+                } else if (csvFile.endsWith("clientAddress.csv")) {
+                    clientAddressList.addAll(parseCsvToClientAddresses(reader));
+                } else {
+                    System.out.println("Unrecognized CSV file: " + csvFile);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Map ClientDetails and ClientAddress to ClientDto and add to the final list
+        for (int i = 0; i < clientDetailsList.size() && i < clientAddressList.size(); i++) {
+            ClientDetails clientDetails = clientDetailsList.get(i);
+            ClientAddress clientAddress = clientAddressList.get(i);
+
+            // TODO: handle exceptions
+            clientDtos.add(clientMapper.mapToClientDto(clientDetails, clientAddress));
+        }
+
+        // Debugging
+        log.info("Size of clientDtos list: {}", clientDtos.size());
+        log.info("Contents of clientDtos list: {}", clientDtos);
+
+
+        // Convert List of ClientDto objects to JSON
+        try (FileWriter fileWriter = new FileWriter(jsonFile)) {
+            String jsonData = objectMapper.writeValueAsString(clientDtos);
+            fileWriter.write(jsonData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     private static List<ClientDetails> parseCsvToClientDetails(Reader reader) throws IOException {
         List<ClientDetails> clientDetailsList = new ArrayList<>();
