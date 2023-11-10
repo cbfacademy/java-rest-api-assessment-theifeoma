@@ -24,78 +24,74 @@ public class ClientDetailsService{
         this.clientDtoRepository = clientDtoRepository;
     }
 
-    public List<ClientDetails> getAllClients() throws IOException {
-        return clientDtoRepository.getAll();
-    }
-
     public List<ClientDto> getAllDto() throws IOException{
         log.info("Inside Service Layer");
         return clientDtoRepository.getAllDto();
     }
 
-    public void addNewClient(ClientDetails client) throws IOException {
-        ClientDetails existingClient = (ClientDetails) clientDtoRepository.findClientDetailsByEmail(client.getEmail());
-        if (existingClient != null) {
-            throw new IllegalStateException("Email is already taken or is not original");
-        }
-        // Add the new client to the repository
-        List<ClientDetails> clients = clientDtoRepository.getAll();
-        clients.add(client);
-        clientDtoRepository.save(clients);
-    }
-
-    public void deleteClient(Long clientId) throws IOException {
-        boolean clientExists = clientDtoRepository.existsById(clientId);
+    public void deleteClientD(Long clientId) throws IOException {
+        boolean clientExists = clientDtoRepository.existsByClientId(clientId);
 
         if (!clientExists) {
             throw new IllegalStateException("Client with Client ID: " + clientId + " does not exist");
         }
 
         // Remove the client by ID and save the updated data
-        List<ClientDetails> clients = clientDtoRepository.getAll();
+        List<ClientDto> clients = clientDtoRepository.getAllDto();
         clients.removeIf(client -> {
-            if (client instanceof ClientDetails) {
-                return ((ClientDetails) client).getClientId().equals(clientId);
+            if (client != null) {
+                return client.getClientId().equals(clientId);
             }
             return false;
         });
-        clientDtoRepository.save(clients);
+        clientDtoRepository.saveClientDto(clients);
     }
 
-    public List<ClientDetails> sortAllClientsByRole(String role) throws IOException {
-        List<ClientDetails> clients = clientDtoRepository.getAll();
-        List<ClientDetails> clientsWithRole = clients.stream()
-                .filter(client -> client instanceof ClientDetails && ((ClientDetails) client).getRole().equalsIgnoreCase(role))
-                .map(client -> (ClientDetails) client)
-                .collect(Collectors.toList());
+    public void addNewClient(ClientDto client) throws IOException {
+        boolean clientExists = clientDtoRepository.existsByClientId(client.getClientId());
 
-        if (clientsWithRole.isEmpty()) {
-            throw new IllegalStateException("No clients found with role: " + role);
+        if (clientExists) {
+            throw new IllegalStateException("Client with Client ID: " + client.getClientId() + " exists");
         }
-
-        // Sorting the clients with the specified role by their ID
-        clientsWithRole.sort(Comparator.comparing(ClientDetails::getClientId));
-        return clientsWithRole;
+        // Add the new client to the repository
+        List<ClientDto> clients = clientDtoRepository.getAllDto();
+        clients.add(client);
+        clientDtoRepository.saveClientDto(clients);
     }
 
-    public void updateClient(Long clientId, ClientDetails updatedClient) throws IOException {
-        List<ClientDetails> clients = clientDtoRepository.getAll();
+//    public List<ClientDetails> sortAllClientsByRole(String role) throws IOException {
+//        List<ClientDetails> clients = clientDtoRepository.getAll();
+//        List<ClientDetails> clientsWithRole = clients.stream()
+//                .filter(client -> client != null && client.getRole().equalsIgnoreCase(role))
+//                .collect(Collectors.toList());
+//
+//        if (clientsWithRole.isEmpty()) {
+//            throw new IllegalStateException("No clients found with role: " + role);
+//        }
+//
+//        // Sorting the clients with the specified role by their ID
+//        clientsWithRole.sort(Comparator.comparing(ClientDetails::getClientId));
+//        return clientsWithRole;
+//    }
 
-        boolean clientExists = false;
-
-        for (Object client : clients) {
-            if (client instanceof ClientDetails && ((ClientDetails) client).getClientId().equals(clientId)) {
-                clients.remove(client);
-                clients.add(updatedClient);
-                clientExists = true;
-                break;
-            }
-        }
-
-        if (!clientExists) {
-            throw new IllegalStateException("Client with ID: " + clientId + " not found");
-        }
-
-        clientDtoRepository.save(clients);
-    }
+//    public void updateClient(Long clientId, ClientDetails updatedClient) throws IOException {
+//        List<ClientDetails> clients = clientDtoRepository.getAll();
+//
+//        boolean clientExists = false;
+//
+//        for (Object client : clients) {
+//            if (client instanceof ClientDetails && ((ClientDetails) client).getClientId().equals(clientId)) {
+//                clients.remove(client);
+//                clients.add(updatedClient);
+//                clientExists = true;
+//                break;
+//            }
+//        }
+//
+//        if (!clientExists) {
+//            throw new IllegalStateException("Client with ID: " + clientId + " not found");
+//        }
+//
+//        clientDtoRepository.save(clients);
+//    }
 }

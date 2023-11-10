@@ -4,6 +4,7 @@ import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.cbfacademy.apiassessment.entities.ClientDetails;
 import com.cbfacademy.apiassessment.services.ClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -25,23 +26,23 @@ public class ClientDtoController {
         return clientDetailsService.getAllDto();
     }
 
-    @PostMapping("/add")
-    public void addNewClient(@RequestBody ClientDetails client) throws IOException {
+    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void addNewClient(@RequestBody ClientDto client) throws IOException {
         clientDetailsService.addNewClient(client);
     }
 
     @DeleteMapping("/delete/{clientId}")
     public void deleteClient(@PathVariable Long clientId) throws IOException {
-        clientDetailsService.deleteClient(clientId);
+        clientDetailsService.deleteClientD(clientId);
     }
-
-    @GetMapping("/sort/{role}")
-    public List<ClientDetails> sortClientsByRole(@PathVariable String role) throws IOException {
-        return clientDetailsService.sortAllClientsByRole(role);
-    }
-
-    @PutMapping("/update/{clientId}")
-    public void updateClient(@PathVariable Long clientId, @RequestBody ClientDetails updatedClient) throws IOException {
-        clientDetailsService.updateClient(clientId, updatedClient);
-    }
+//
+//    @GetMapping("/sort/{role}")
+//    public List<ClientDetails> sortClientsByRole(@PathVariable String role) throws IOException {
+//        return clientDetailsService.sortAllClientsByRole(role);
+//    }
+//
+//    @PutMapping("/update/{clientId}")
+//    public void updateClient(@PathVariable Long clientId, @RequestBody ClientDetails updatedClient) throws IOException {
+//        clientDetailsService.updateClient(clientId, updatedClient);
+//    }
 }
