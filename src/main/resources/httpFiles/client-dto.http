@@ -12,7 +12,6 @@ GET http://localhost:7070/clients/all
 
 <> 2023-11-10T211459.404.json
 
-
 ###
 GET http://localhost:7070/data
 

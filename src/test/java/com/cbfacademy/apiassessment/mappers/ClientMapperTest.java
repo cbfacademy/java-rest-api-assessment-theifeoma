@@ -11,31 +11,32 @@ public class ClientMapperTest {
     public void testMapToClientDto() {
         // Create sample ClientDetails and ClientAddress objects
         ClientDetails clientDetails = new ClientDetails();
-        clientDetails.setClientId(1L);
+        clientDetails.setRole("Sales");
 
         ClientAddress clientAddress = new ClientAddress();
-        clientAddress.setClientAddressId(1L);
+        clientAddress.setCountry("Japan");
 
         // Perform the mapping
         ClientDto clientDto = ClientMapper.INSTANCE.mapToClientDto(clientDetails, clientAddress);
 
         // Verify the mapping results
-        assertEquals(clientDetails.getClientId(), clientDto.getClientId());
-        assertEquals(clientAddress.getClientAddressId(), clientDto.getAddressId());
+        assertEquals(clientDetails.getRole(), clientDto.getRole());
+        assertEquals(clientAddress.getCountry(), clientDto.getCountry());
     }
 
     @Test
     public void testMapToClientAddress() {
         // Create sample ClientDto object
         ClientDto clientDto = new ClientDto();
-        clientDto.setClientId(1L);
-        clientDto.setAddressId(1L);
+        clientDto.setAddressLineOne("3 Samson Road");
+        clientDto.setPostcode("E4 3RW");
 
         // Perform the mapping
         ClientAddress clientAddress = ClientMapper.INSTANCE.maptoClientAddress(clientDto);
 
         // Verify the mapping results
-        assertEquals(clientDto.getAddressId(), clientAddress.getClientAddressId());
+        assertEquals(clientDto.getPostcode(), clientAddress.getPostcode());
+        assertEquals(clientDto.getAddressLineOne(), clientAddress.getAddressLineOne());
     }
 
     @Test

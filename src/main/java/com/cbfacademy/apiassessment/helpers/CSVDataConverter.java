@@ -11,95 +11,10 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CSVDataConverter {
 
     private static final Logger log = LoggerFactory.getLogger(CSVDataConverter.class);
-
-    public void convertCSVToJson(String csvFile, String jsonFile){
-       ObjectMapper objectMapper = new ObjectMapper();
-       List<ClientDetails> clientDetailsList = new ArrayList<>();
-
-       try (Reader reader = new FileReader(csvFile)) {
-           // Parse CSV data into a List of ClientDetails objects
-           clientDetailsList = parseCsvToClientDetails(reader);
-           // Convert List of ClientDetails to JSON
-           String jsonData = objectMapper.writeValueAsString(clientDetailsList);
-           // Write JSON data to output file
-           FileWriter fileWriter = new FileWriter(jsonFile);
-           fileWriter.write(jsonData);
-           fileWriter.close();
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
-
-   }
-
-    public void convertCSVToJson(List<String> csvFiles, String jsonFile) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Object> dataList = new ArrayList<>();
-
-        // Loop through each CSV file and parse its data into a List of objects
-        for (String csvFile : csvFiles) {
-            try (Reader reader = new FileReader(csvFile)) {
-                // Parse CSV data into a List of objects based on the file type
-                if (csvFile.endsWith("clientDetails.csv")) {
-                    dataList.addAll(parseCsvToClientDetails(reader));
-                } else if (csvFile.endsWith("clientAddress.csv")) {
-                    dataList.addAll(parseCsvToClientAddresses(reader));
-                } else if (csvFile.endsWith("employeeDetails.csv")) {
-                    dataList.addAll(parseCsvToEmployeeDetails(reader));
-                } else if (csvFile.endsWith("legalDetails.csv")) {
-                    dataList.addAll(parseCsvToLegalDetails(reader));
-                } else if (csvFile.endsWith("tradeDetails.csv")) {
-                    dataList.addAll(parseCsvToTradeDetails(reader));
-                } else {
-                    // Handle unrecognized CSV file types if needed
-                    System.out.println("Unrecognized CSV file: " + csvFile);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // Convert List of objects to JSON
-        try (FileWriter fileWriter = new FileWriter(jsonFile)) {
-            String jsonData = objectMapper.writeValueAsString(dataList);
-            fileWriter.write(jsonData);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void convert2CSVToJson(List<String> csvFiles, String jsonFile) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Object> dataList = new ArrayList<>();
-
-        // Loop through each CSV file and parse its data into a List of objects
-        for (String csvFile : csvFiles) {
-            try (Reader reader = new FileReader(csvFile)) {
-                // Parse CSV data into a List of objects based on the file type
-                if (csvFile.endsWith("clientDetails.csv")) {
-                    dataList.addAll(parseCsvToClientDetails(reader));
-                } else if (csvFile.endsWith("clientAddress.csv")) {
-                } else {
-                    // Handle unrecognized CSV file types if needed
-                    System.out.println("Unrecognized CSV file: " + csvFile);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // Convert List of objects to JSON
-        try (FileWriter fileWriter = new FileWriter(jsonFile)) {
-            String jsonData = objectMapper.writeValueAsString(dataList);
-            fileWriter.write(jsonData);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void convertCSVToDtoToJson(List<String> csvFiles, String jsonFile) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -288,7 +203,4 @@ public class CSVDataConverter {
         }
         return tradeDetailsList;
     }
-
-
-
 }
