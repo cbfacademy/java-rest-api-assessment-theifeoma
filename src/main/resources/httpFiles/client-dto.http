@@ -1,30 +1,4 @@
 ###
-GET http://localhost:7070/clients/all
-
-###
-DELETE http://localhost:7070/clients/delete/1
-
-###
-GET http://localhost:7070/clients/sort/manager
-
-###
-GET http://localhost:7070/clients/all
-
-<> 2023-11-10T211459.404.json
-
-###
-GET http://localhost:7070/data
-
-###
-GET http://localhost:7070/clients/sort/manager
-
-###
-GET http://localhost:7070/client-details/all
-
-###
-GET http://localhost:7070/client-details/all
-
-###
 GET http://localhost:7070/client-details/all-clients
 
 ###
@@ -67,5 +41,8 @@ POST http://localhost:7070/client-details/add
 Content-Type: application/json
 
 < client-dto.json
-
 <> 2023-11-10T212352.500.json
+
+###
+PUT http://localhost:7070/client-details/update/1?newClientEmail=newestemail@yahoo.com
+Content-Type: application/json

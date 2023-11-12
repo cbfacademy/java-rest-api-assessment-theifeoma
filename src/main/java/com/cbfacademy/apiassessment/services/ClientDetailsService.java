@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ClientDetailsService{
@@ -22,7 +23,6 @@ public class ClientDetailsService{
     }
 
     public List<ClientDto> getAllDto() throws IOException{
-        log.info("Inside Service Layer");
         return clientDtoRepository.getAllDto();
     }
 
@@ -54,6 +54,28 @@ public class ClientDetailsService{
         List<ClientDto> clients = clientDtoRepository.getAllDto();
         clients.add(client);
         clientDtoRepository.saveClientDto(clients);
+    }
+
+    public List<ClientDto> findClientsByClassification(String classification) throws IOException {
+        List<ClientDto> clients = clientDtoRepository.findClientsByClassification(classification);
+
+        if (clients.isEmpty()) {
+            throw new NoSuchElementException("No clients found with classification: " + classification);
+        }
+
+        return clients;
+    }
+
+    public String updateClientEmail(Long clientId, String newEmail) {
+        try {
+            if (clientDtoRepository.updateClientEmail(clientId, newEmail)) {
+                return "Client email updated successfully.";
+            } else {
+                return "Client not found. Email update failed.";
+            }
+        } catch (IOException e) {
+            return "An error occurred while updating client email.";
+        }
     }
 
 //    public List<ClientDetails> sortAllClientsByRole(String role) throws IOException {

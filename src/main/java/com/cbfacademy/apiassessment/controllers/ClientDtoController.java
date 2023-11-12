@@ -1,7 +1,6 @@
 package com.cbfacademy.apiassessment.controllers;
 
 import com.cbfacademy.apiassessment.dto.ClientDto;
-import com.cbfacademy.apiassessment.entities.ClientDetails;
 import com.cbfacademy.apiassessment.services.ClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -35,14 +34,15 @@ public class ClientDtoController {
     public void deleteClient(@PathVariable Long clientId) throws IOException {
         clientDetailsService.deleteClientD(clientId);
     }
-//
-//    @GetMapping("/sort/{role}")
-//    public List<ClientDetails> sortClientsByRole(@PathVariable String role) throws IOException {
-//        return clientDetailsService.sortAllClientsByRole(role);
-//    }
-//
-//    @PutMapping("/update/{clientId}")
-//    public void updateClient(@PathVariable Long clientId, @RequestBody ClientDetails updatedClient) throws IOException {
-//        clientDetailsService.updateClient(clientId, updatedClient);
-//    }
+
+    @GetMapping("/sort/{classification}")
+    public List<ClientDto> findClientsByClassification(@PathVariable String classification) throws IOException {
+        return clientDetailsService.findClientsByClassification(classification);
+    }
+
+    @PutMapping("/update/{clientId}")
+    public String updateClientEmail(@PathVariable Long clientId,
+                                    @RequestParam String newClientEmail) throws IOException {
+        return clientDetailsService.updateClientEmail(clientId, newClientEmail);
+    }
 }

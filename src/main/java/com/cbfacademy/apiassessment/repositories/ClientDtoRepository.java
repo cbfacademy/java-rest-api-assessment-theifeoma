@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.cbfacademy.apiassessment.constants.Const.CLIENT_DTO_CSV_DATA_FILES_LIST;
+import static com.cbfacademy.apiassessment.constants.Const.JSON_REPOSITORY;
 
 @Repository
 public class ClientDtoRepository {
@@ -24,10 +24,7 @@ public class ClientDtoRepository {
 
     private static final Logger log = LoggerFactory.getLogger(ClientDtoRepository.class);
 
-    List<String> csvTestFiles = Arrays.asList("src/main/resources/csvFiles/clientAddress.csv", "src/main/resources/csvFiles/clientDetails.csv");
-    String jsonDtoRepoTestFile = "src/main/resources/jsonFiles/clientDtoRepo.json";
-
-    public ClientDtoRepository(@Value("${json.file.clientDtoRepo.path}") String filePath) {
+    public ClientDtoRepository(@Value(JSON_REPOSITORY) String filePath) {
         this.jsonFile = new File(filePath);
         this.objectMapper = new ObjectMapper();
 
@@ -40,7 +37,7 @@ public class ClientDtoRepository {
         if (jsonFile.length() == 0) {
             // If the JSON file is empty, perform the CSV to Dto to JSON conversion
             CSVDataConverter csvDataConverter = new CSVDataConverter();
-            csvDataConverter.convertCSVToDtoToJson(csvTestFiles, jsonDtoRepoTestFile);
+            csvDataConverter.convertCSVToDtoToJson(CLIENT_DTO_CSV_DATA_FILES_LIST, JSON_REPOSITORY);
         } else {
             // If the JSON file is not empty, log a message and continue using the existing JSON data
             log.info("JSON file is not empty. Skipping CSV to JSON conversion.");
@@ -55,7 +52,6 @@ public class ClientDtoRepository {
 //    }
 
     public List<ClientDto> getAllDto() throws IOException {
-        log.info("Inside Repository");
         List<ClientDto> clientDtoList = objectMapper.readValue(jsonFile, new TypeReference<List<ClientDto>>() {
         });
         return clientDtoList != null ? clientDtoList : new ArrayList<>();
@@ -107,36 +103,46 @@ public class ClientDtoRepository {
                 .collect(Collectors.toList());
     }
 
-    public ClientDto findClientDetailsByEmail(String email) throws IOException {
+    public List<ClientDto> findClientsByClassification(String classification) throws IOException{
         List<ClientDto> clients = getAllDto();
 
-        // Sort the clients by email
-        clients.sort(Comparator.comparing(ClientDto::getEmail));
+        // Filter clients by the given classification
+        List<ClientDto> filteredClients = clients.stream()
+                .filter(client -> classification.equalsIgnoreCase(client.getClientClassification()))
+                .collect(Collectors.toList());
 
-        // Perform binary search
-        int index = binarySearchByClientEmail(clients, email);
+        // Sort the filtered clients by classification
+        filteredClients.sort(Comparator.comparing(ClientDto::getClientClassification));
 
-        // Check if the email was found
-        return index >= 0 ? clients.get(index) : null;
+        return filteredClients;
     }
 
-    private int binarySearchByClientEmail(List<ClientDto> clients, String email) {
-        int start = 0;
-        int end = clients.size() - 1;
+    public boolean updateClientEmail(Long clientId, String newEmail) throws IOException {
+        List<ClientDto> clients = getAllDto();
 
-        while (start <= end) {
-            int mid = (start + end) / 2;
-            String midVal = clients.get(mid).getEmail();
-            int cmp = midVal.compareToIgnoreCase(email);
+        // Find the client by ID
+        Optional<ClientDto> clientOptional = clients.stream()
+                .filter(client -> client != null && client.getClientId().equals(clientId))
+                .findFirst();
 
-            if (cmp < 0) {
-                start = mid + 1;
-            } else if (cmp > 0) {
-                end = mid - 1;
-            } else {
-                return mid; // Found
-            }
+        if (clientOptional.isPresent()) {
+            ClientDto clientToUpdate = clientOptional.get();
+
+            log.info(clientToUpdate.toString());
+
+            // Update the email address
+            clientToUpdate.setEmail(newEmail);
+
+            log.info(clientToUpdate.toString());
+
+            // Save the updated client list
+            saveClientDto(clients);
+
+            log.info(clientToUpdate.toString());
+
+            return true; // Update successful
         }
-        return -1; // Not found
+
+        return false; // Client not found
     }
 }
