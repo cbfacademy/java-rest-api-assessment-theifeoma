@@ -1,7 +1,6 @@
 package com.cbfacademy.apiassessment.services;
 
 import com.cbfacademy.apiassessment.dto.ClientDto;
-import com.cbfacademy.apiassessment.entities.ClientDetails;
 import com.cbfacademy.apiassessment.repositories.ClientDtoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ClientDetailsService{

@@ -44,28 +44,5 @@
     "addressTelephone": "111-222-3333",
     "addressEmail": "michael.johnson@example.com",
     "addressUrl": "www.another-example.com"
-  },
-  {
-    "clientId": 3,
-    "firstName": "Michael",
-    "middleName": "",
-    "familyName": "Johnson",
-    "email": "michael.johnson@example.com",
-    "role": "Manager",
-    "telephoneNumber": "111-222-3333",
-    "birthDate": "1988-11-30",
-    "recordCreationDate": "2022-01-03",
-    "lastContactedDate": "2022-11-05",
-    "clientClassification": "Platinum",
-    "addressHouseNumber": 34,
-    "addressLineOne": "North St",
-    "addressLineTwo": "Rue 12",
-    "city": "City345",
-    "state": "State9",
-    "postcode": "67890",
-    "country": "USA",
-    "addressTelephone": "111-222-3333",
-    "addressEmail": "michael.johnson@example.com",
-    "addressUrl": "www.another-example.com"
   }
 ]

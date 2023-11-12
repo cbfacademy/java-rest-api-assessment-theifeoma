@@ -1,22 +1,19 @@
 package com.cbfacademy.apiassessment.repositories;
 
 import com.cbfacademy.apiassessment.dto.ClientDto;
-import com.cbfacademy.apiassessment.entities.ClientDetails;
 import com.cbfacademy.apiassessment.helpers.CSVDataConverter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,44 +31,75 @@ public class ClientDtoRepository {
         this.jsonFile = new File(filePath);
         this.objectMapper = new ObjectMapper();
 
-        // Call the initialization method to perform CSV to JSON conversion
+        // Call the initialization method to perform CSV to Dto to JSON conversion
         initialiseDtoRepository();
     }
 
     private void initialiseDtoRepository() {
-        CSVDataConverter csvDataConverter = new CSVDataConverter();
-        log.info("Inside initialiseDtoRepository");
-        csvDataConverter.convertCSVToDtoToJson(csvTestFiles, jsonDtoRepoTestFile);
+        // Check if the JSON file is empty
+        if (jsonFile.length() == 0) {
+            // If the JSON file is empty, perform the CSV to Dto to JSON conversion
+            CSVDataConverter csvDataConverter = new CSVDataConverter();
+            csvDataConverter.convertCSVToDtoToJson(csvTestFiles, jsonDtoRepoTestFile);
+        } else {
+            // If the JSON file is not empty, log a message and continue using the existing JSON data
+            log.info("JSON file is not empty. Skipping CSV to JSON conversion.");
+        }
     }
+
+    //Repository option to always overwrite with CSV on startup
+
+//    private void initialiseDtoRepository() {
+//        CSVDataConverter csvDataConverter = new CSVDataConverter();
+//        csvDataConverter.convertCSVToDtoToJson(csvTestFiles, jsonDtoRepoTestFile);
+//    }
 
     public List<ClientDto> getAllDto() throws IOException {
         log.info("Inside Repository");
-
-        // Read the content of the file into a String
-        String json = Files.readString(Paths.get(jsonDtoRepoTestFile));
-
         List<ClientDto> clientDtoList = objectMapper.readValue(jsonFile, new TypeReference<List<ClientDto>>() {
         });
-
-        //Debugging
-        log.info("Size of clientDtos list: {}", clientDtoList.size());
-        log.info("Contents of clientDtos list: {}", clientDtoList);
         return clientDtoList != null ? clientDtoList : new ArrayList<>();
     }
 
     public boolean existsByClientId(Long clientId) throws IOException {
         List<ClientDto> clients = getAllDto();
 
-        return clients.stream()
-                .anyMatch(client -> client != null && client.getClientId().equals(clientId));
+        // Sort the list by clientId
+        clients.sort(Comparator.comparing(ClientDto::getClientId));
+
+        // Perform binary search
+        int index = binarySearchByClientId(clients, clientId);
+
+        // Check if the clientId was found
+        return index >= 0;
+    }
+
+    private int binarySearchByClientId(List<ClientDto> clients, Long clientId) {
+        int start = 0;
+        int end = clients.size() - 1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            //gets the client id in the mid-index of list
+            Long midVal = clients.get(mid).getClientId();
+            //compares the mid-val with the clientId we are looking for
+            int cmp = midVal.compareTo(clientId);
+
+            if (cmp < 0) {
+                start = mid + 1;
+            } else if (cmp > 0) {
+                end = mid - 1;
+            } else {
+                return mid; // Found
+            }
+        }
+        return -1; // Not found
     }
 
     public void saveClientDto(List<ClientDto> data) throws IOException {
         objectMapper.writeValue(jsonFile, data);
     }
 
-
-    //TODO: implement algorithm here
     public List<Object> findAllByRole(String role) throws IOException {
         List<ClientDto> clients = getAllDto();
         return clients.stream()
@@ -79,12 +107,36 @@ public class ClientDtoRepository {
                 .collect(Collectors.toList());
     }
 
-    //TODO: implement algorithm here
     public ClientDto findClientDetailsByEmail(String email) throws IOException {
         List<ClientDto> clients = getAllDto();
-        return clients.stream()
-                .filter(client -> client != null && client.getEmail().equalsIgnoreCase(email))
-                .findFirst()
-                .orElse(null);
+
+        // Sort the clients by email
+        clients.sort(Comparator.comparing(ClientDto::getEmail));
+
+        // Perform binary search
+        int index = binarySearchByClientEmail(clients, email);
+
+        // Check if the email was found
+        return index >= 0 ? clients.get(index) : null;
+    }
+
+    private int binarySearchByClientEmail(List<ClientDto> clients, String email) {
+        int start = 0;
+        int end = clients.size() - 1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            String midVal = clients.get(mid).getEmail();
+            int cmp = midVal.compareToIgnoreCase(email);
+
+            if (cmp < 0) {
+                start = mid + 1;
+            } else if (cmp > 0) {
+                end = mid - 1;
+            } else {
+                return mid; // Found
+            }
+        }
+        return -1; // Not found
     }
 }
