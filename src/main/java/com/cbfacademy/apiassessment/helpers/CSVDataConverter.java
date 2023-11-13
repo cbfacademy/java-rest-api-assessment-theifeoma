@@ -1,6 +1,7 @@
 package com.cbfacademy.apiassessment.helpers;
 
 import com.cbfacademy.apiassessment.dto.ClientDto;
+import com.cbfacademy.apiassessment.dto.ClientTradeDetails;
 import com.cbfacademy.apiassessment.entities.*;
 import com.cbfacademy.apiassessment.mappers.ClientMapper;
 import com.cbfacademy.apiassessment.mappers.ClientMapperImpl;
@@ -16,7 +17,7 @@ public class CSVDataConverter {
 
     private static final Logger log = LoggerFactory.getLogger(CSVDataConverter.class);
 
-    public void convertCSVToDtoToJson(List<String> csvFiles, String jsonFile) {
+    public void convertCSVToDtoToClientDtoJson(List<String> csvFiles, String jsonFile) {
         ObjectMapper objectMapper = new ObjectMapper();
         List<ClientDto> clientDtos = new ArrayList<>();
 
@@ -64,7 +65,52 @@ public class CSVDataConverter {
         }
     }
 
+    public void convertCSVToDtoToClientTradeJson(List<String> csvFiles, String jsonFile) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<ClientTradeDetails> clientTradeDetailsList = new ArrayList<>();
 
+        ClientMapper clientMapper = new ClientMapperImpl();
+
+        List<ClientDetails> clientDetailsList = new ArrayList<>();
+        List<TradeDetails> tradeDetailsList = new ArrayList<>();
+
+        // Loop through each CSV file and parse its data into the respective class lists
+        for (String csvFile : csvFiles) {
+            try (Reader reader = new FileReader(csvFile)) {
+                // Parse CSV data into the respective lists based on the file type
+                if (csvFile.endsWith("clientDetails.csv")) {
+                    clientDetailsList.addAll(parseCsvToClientDetails(reader));
+                } else if (csvFile.endsWith("tradeDetails.csv")) {
+                    tradeDetailsList.addAll(parseCsvToTradeDetails(reader));
+                } else {
+                    System.out.println("Unrecognized CSV file: " + csvFile);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Map ClientDetails and TradeDetails to ClientTradeDetails and add to the final list
+        for (int i = 0; i < clientDetailsList.size() && i < tradeDetailsList.size(); i++) {
+            ClientDetails clientDetails = clientDetailsList.get(i);
+            TradeDetails tradeDetails = tradeDetailsList.get(i);
+
+            // TODO: handle exceptions
+            clientTradeDetailsList.add(clientMapper.mapToClientTradeDetails(clientDetails, tradeDetails));
+        }
+
+        // Debugging
+        log.info("Size of ClientTradeDetails list: {}", clientTradeDetailsList.size());
+        log.info("Contents of ClientTradeDetails list: {}", clientTradeDetailsList);
+
+        // Convert List of ClientTradeDetails objects to JSON
+        try (FileWriter fileWriter = new FileWriter(jsonFile)) {
+            String jsonData = objectMapper.writeValueAsString(clientTradeDetailsList);
+            fileWriter.write(jsonData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private static List<ClientDetails> parseCsvToClientDetails(Reader reader) throws IOException {
         List<ClientDetails> clientDetailsList = new ArrayList<>();

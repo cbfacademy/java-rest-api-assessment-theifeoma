@@ -1,0 +1,38 @@
+[
+  {
+    "tradeDetailsId": 1,
+    "clientId": 1,
+    "firstName": "John",
+    "middleName": "A",
+    "familyName": "Smith",
+    "telephoneNumber": "123-456-7890",
+    "email": "john.smith@example.com",
+    "accountNumber": "ACCT123",
+    "product": "Stocks",
+    "contractingEntity": "Entity1"
+  },
+  {
+    "tradeDetailsId": 2,
+    "clientId": 2,
+    "firstName": "Alice",
+    "middleName": "B",
+    "familyName": "Jones",
+    "telephoneNumber": "987-654-3210",
+    "email": "alice.jones@example.com",
+    "accountNumber": "ACCT456",
+    "product": "Bonds",
+    "contractingEntity": "Entity2"
+  },
+  {
+    "tradeDetailsId": 3,
+    "clientId": 3,
+    "firstName": "Michael",
+    "middleName": "",
+    "familyName": "Johnson",
+    "telephoneNumber": "111-222-3333",
+    "email": "michael.johnson@example.com",
+    "accountNumber": "ACCT789",
+    "product": "Options",
+    "contractingEntity": "Entity3"
+  }
+]

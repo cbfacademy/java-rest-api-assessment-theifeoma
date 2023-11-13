@@ -14,8 +14,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.cbfacademy.apiassessment.constants.Const.CLIENT_DTO_CSV_DATA_FILES_LIST;
-import static com.cbfacademy.apiassessment.constants.Const.JSON_REPOSITORY;
+import static com.cbfacademy.apiassessment.constants.Const.*;
 
 @Repository
 public class ClientDtoRepository {
@@ -37,7 +36,7 @@ public class ClientDtoRepository {
         if (jsonFile.length() == 0) {
             // If the JSON file is empty, perform the CSV to Dto to JSON conversion
             CSVDataConverter csvDataConverter = new CSVDataConverter();
-            csvDataConverter.convertCSVToDtoToJson(CLIENT_DTO_CSV_DATA_FILES_LIST, JSON_REPOSITORY);
+            csvDataConverter.convertCSVToDtoToClientDtoJson(CLIENT_DTO_CSV_DATA_FILES_LIST, JSON_REPOSITORY);
         } else {
             // If the JSON file is not empty, log a message and continue using the existing JSON data
             log.info("JSON file is not empty. Skipping CSV to JSON conversion.");
