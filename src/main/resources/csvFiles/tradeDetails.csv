@@ -1,4 +1,4 @@
-tradeDetailsId,accountNumber,timeOfExecution,product,contractingEntity
-1,ACCT123,2023-01-15 10:30:00,Stocks,Entity1
-2,ACCT456,2023-02-20 14:45:00,Bonds,Entity2
-3,ACCT789,2023-03-10 09:15:00,Options,Entity3
+tradeDetailsId,accountNumber,revenue,subAccountNumber,timeOfExecution,product,contractingEntity
+1,ACCT123,340003450,SACCT726,2023-01-15 10:30:00,Stocks,Entity1
+2,ACCT456,543085789,SACCT903,2023-02-20 14:45:00,Bonds,Entity2
+3,ACCT789,546896328,SACCT213,2023-03-10 09:15:00,Options,Entity3

@@ -41,7 +41,7 @@ public class ClientTradeDetailsRepository {
             csvDataConverter.convertCSVToDtoToClientTradeJson(CLIENT_TRADE_DETAILS_CSV_DATA_FILES_LIST, TRADE_JSON_REPOSITORY);
         } else {
             // If the JSON file is not empty, log a message and continue using the existing JSON data
-            log.info("JSON file is not empty. Skipping CSV to JSON conversion.");
+            log.info("Trade Details JSON file is not empty. Skipping CSV to JSON conversion.");
         }
     }
 

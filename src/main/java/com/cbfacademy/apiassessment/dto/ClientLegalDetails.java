@@ -9,6 +9,8 @@ public class ClientLegalDetails {
     private Long legalDetailsId;
     private Long clientId;
     private String lei;
+    private String clientLegalName;
+    private String clientName;
     private String riskRating;
     private String nextReviewDate;
     private String clientStatus;

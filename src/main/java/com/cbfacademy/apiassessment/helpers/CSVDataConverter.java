@@ -1,6 +1,7 @@
 package com.cbfacademy.apiassessment.helpers;
 
 import com.cbfacademy.apiassessment.dto.ClientDto;
+import com.cbfacademy.apiassessment.dto.ClientLegalDetails;
 import com.cbfacademy.apiassessment.dto.ClientTradeDetails;
 import com.cbfacademy.apiassessment.entities.*;
 import com.cbfacademy.apiassessment.mappers.ClientMapper;
@@ -112,6 +113,53 @@ public class CSVDataConverter {
         }
     }
 
+    public void convertCSVToDtoToClientLegalJson(List<String> csvFiles, String jsonFile) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<ClientLegalDetails> clientLegalDetailsList = new ArrayList<>();
+
+        ClientMapper clientMapper = new ClientMapperImpl();
+
+        List<ClientDetails> clientDetailsList = new ArrayList<>();
+        List<LegalDetails> legalDetailsList = new ArrayList<>();
+
+        // Loop through each CSV file and parse its data into the respective class lists
+        for (String csvFile : csvFiles) {
+            try (Reader reader = new FileReader(csvFile)) {
+                // Parse CSV data into the respective lists based on the file type
+                if (csvFile.endsWith("clientDetails.csv")) {
+                    clientDetailsList.addAll(parseCsvToClientDetails(reader));
+                } else if (csvFile.endsWith("legalDetails.csv")) {
+                    legalDetailsList.addAll(parseCsvToLegalDetails(reader));
+                } else {
+                    System.out.println("Unrecognized CSV file: " + csvFile);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Map ClientDetails and TradeDetails to ClientTradeDetails and add to the final list
+        for (int i = 0; i < clientDetailsList.size() && i < legalDetailsList.size(); i++) {
+            ClientDetails clientDetails = clientDetailsList.get(i);
+            LegalDetails legalDetails = legalDetailsList.get(i);
+
+            // TODO: handle exceptions
+            clientLegalDetailsList.add(clientMapper.mapToClientLegalDetails(clientDetails, legalDetails));
+        }
+
+        // Debugging
+        log.info("Size of clientLegalDetailsList list: {}", clientLegalDetailsList.size());
+        log.info("Contents of clientLegalDetailsList list: {}", clientLegalDetailsList);
+
+        // Convert List of ClientTradeDetails objects to JSON
+        try (FileWriter fileWriter = new FileWriter(jsonFile)) {
+            String jsonData = objectMapper.writeValueAsString(clientLegalDetailsList);
+            fileWriter.write(jsonData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static List<ClientDetails> parseCsvToClientDetails(Reader reader) throws IOException {
         List<ClientDetails> clientDetailsList = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(reader)) {
@@ -215,12 +263,15 @@ public class CSVDataConverter {
                 // Set LegalDetails fields based on CSV columns
                 legalDetails.setLegalDetailsId(Long.parseLong(data[0]));
                 legalDetails.setLei(data[1]);
-                legalDetails.setRiskRating(data[2]);
-                legalDetails.setNextReviewDate(data[3]);
-                legalDetails.setClientStatus(data[4]);
-                legalDetails.setRegulatorName(data[5]);
-                legalDetails.setRegulatorId(data[6]);
-                legalDetails.setCapacity(data[7]);
+                legalDetails.setClientLegalName(data[2]);
+                legalDetails.setClientName(data[3]);
+                legalDetails.setRiskRating(data[4]);
+                legalDetails.setNextReviewDate(data[5]);
+                legalDetails.setClientStatus(data[6]);
+                legalDetails.setRegulatorName(data[7]);
+                legalDetails.setRegulatorId(data[8]);
+                legalDetails.setCapacity(data[9]);
+                legalDetails.setClientClassification(data[10]);
 
                 legalDetailsList.add(legalDetails);
             }
@@ -240,9 +291,13 @@ public class CSVDataConverter {
                 // Set TradeDetails fields based on CSV columns
                 tradeDetails.setTradeDetailsId(Long.parseLong(data[0]));
                 tradeDetails.setAccountNumber(data[1]);
-                tradeDetails.setTimeOfExecution(data[2]);
-                tradeDetails.setProduct(data[3]);
-                tradeDetails.setContractingEntity(data[4]);
+                tradeDetails.setRevenue(Long.parseLong(data[2]));
+                tradeDetails.setSubAccountNumber(data[3]);
+                tradeDetails.setTimeOfExecution(data[4]);
+                tradeDetails.setProduct(data[5]);
+                tradeDetails.setContractingEntity(data[6]);
+
+
 
                 tradeDetailsList.add(tradeDetails);
             }
