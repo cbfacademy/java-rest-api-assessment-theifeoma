@@ -25,4 +25,12 @@ public class ClientTradeDetailsService {
         return clientTradeDetailsRepository.getAll();
     }
 
+    public List<ClientTradeDetails> getByProduct(String product) throws IOException {
+        return clientTradeDetailsRepository.getByProduct(product);
+    }
+
+    public List<ClientTradeDetails> getByRevenueRange(Long minRevenue, Long maxRevenue) throws IOException {
+        return clientTradeDetailsRepository.getByRevenueRange(minRevenue, maxRevenue);
+    }
+
 }

@@ -1,2 +1,8 @@
 ###
 GET http://localhost:7070/client-trade-details/all-clients
+
+###
+GET http://localhost:7070/client-trade-details/by-product/stocks
+
+###
+GET http://localhost:7070/client-trade-details/by-revenue-range?minRevenue=500000000&maxRevenue=600000000

@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.cbfacademy.apiassessment.constants.Const.*;
 import static com.cbfacademy.apiassessment.constants.Const.TRADE_JSON_REPOSITORY;
@@ -51,92 +52,23 @@ public class ClientTradeDetailsRepository {
         return clientTradeDetailsList != null ? clientTradeDetailsList : new ArrayList<>();
     }
 
-//    public boolean existsByClientId(Long clientId) throws IOException {
-//        List<ClientTradeDetails> clients = getAllDto();
-//
-//        // Sort the list by clientId
-//        clients.sort(Comparator.comparing(ClientTradeDetails::getClientId));
-//
-//        // Perform binary search
-//        int index = binarySearchByClientId(clients, clientId);
-//
-//        // Check if the clientId was found
-//        return index >= 0;
-//    }
-//
-//    private int binarySearchByClientId(List<ClientTradeDetails> clients, Long clientId) {
-//        int start = 0;
-//        int end = clients.size() - 1;
-//
-//        while (start <= end) {
-//            int mid = (start + end) / 2;
-//            //gets the client id in the mid-index of list
-//            Long midVal = clients.get(mid).getClientId();
-//            //compares the mid-val with the clientId we are looking for
-//            int cmp = midVal.compareTo(clientId);
-//
-//            if (cmp < 0) {
-//                start = mid + 1;
-//            } else if (cmp > 0) {
-//                end = mid - 1;
-//            } else {
-//                return mid; // Found
-//            }
-//        }
-//        return -1; // Not found
-//    }
-//
-//    public void saveClientDto(List<ClientTradeDetails> data) throws IOException {
-//        objectMapper.writeValue(jsonFile, data);
-//    }
-//
-//    public List<Object> findAllByRole(String role) throws IOException {
-//        List<ClientTradeDetails> clients = getAllDto();
-//        return clients.stream()
-//                .filter(client -> client != null && client.getRole().equalsIgnoreCase(role))
-//                .collect(Collectors.toList());
-//    }
-//
-//    public List<ClientTradeDetails> findClientsByClassification(String classification) throws IOException{
-//        List<ClientTradeDetails> clients = getAllDto();
-//
-//        // Filter clients by the given classification
-//        List<ClientDto> filteredClients = clients.stream()
-//                .filter(client -> classification.equalsIgnoreCase(client.getClientClassification()))
-//                .collect(Collectors.toList());
-//
-//        // Sort the filtered clients by classification
-//        filteredClients.sort(Comparator.comparing(ClientDto::getClientClassification));
-//
-//        return filteredClients;
-//    }
-//
-//    public boolean updateClientEmail(Long clientId, String newEmail) throws IOException {
-//        List<ClientTradeDetails> clients = getAllDto();
-//
-//        // Find the client by ID
-//        Optional<ClientTradeDetails> clientOptional = clients.stream()
-//                .filter(client -> client != null && client.getClientId().equals(clientId))
-//                .findFirst();
-//
-//        if (clientOptional.isPresent()) {
-//            ClientTradeDetails clientToUpdate = clientOptional.get();
-//
-//            log.info(clientToUpdate.toString());
-//
-//            // Update the email address
-//            clientToUpdate.setEmail(newEmail);
-//
-//            log.info(clientToUpdate.toString());
-//
-//            // Save the updated client list
-//            saveClientDto(clients);
-//
-//            log.info(clientToUpdate.toString());
-//
-//            return true; // Update successful
-//        }
-//
-//        return false; // Client not found
-//    }
+    //get by product
+    public List<ClientTradeDetails> getByProduct(String product) throws IOException {
+        List<ClientTradeDetails> clientTradeDetailsList = getAll();
+
+        // Filter by product criteria
+        return clientTradeDetailsList.stream()
+                .filter(details -> details.getProduct().equalsIgnoreCase(product))
+                .collect(Collectors.toList());
+    }
+
+    //get by revenue min and max
+    public List<ClientTradeDetails> getByRevenueRange(Long minRevenue, Long maxRevenue) throws IOException {
+        List<ClientTradeDetails> clientTradeDetailsList = getAll();
+
+        // Filter by revenue range criteria
+        return clientTradeDetailsList.stream()
+                .filter(details -> details.getRevenue() >= minRevenue && details.getRevenue() <= maxRevenue)
+                .collect(Collectors.toList());
+    }
 }

@@ -1,1 +1,32 @@
-[{"clientId":1,"tradeDetailsId":1,"accountNumber":"ACCT123","revenue":340003450,"subAccountNumber":"SACCT726","timeOfExecution":"2023-01-15 10:30:00","product":"Stocks","contractingEntity":"Entity1"},{"clientId":2,"tradeDetailsId":2,"accountNumber":"ACCT456","revenue":543085789,"subAccountNumber":"SACCT903","timeOfExecution":"2023-02-20 14:45:00","product":"Bonds","contractingEntity":"Entity2"},{"clientId":3,"tradeDetailsId":3,"accountNumber":"ACCT789","revenue":546896328,"subAccountNumber":"SACCT213","timeOfExecution":"2023-03-10 09:15:00","product":"Options","contractingEntity":"Entity3"}]
+[
+  {
+    "clientId": 1,
+    "tradeDetailsId": 1,
+    "accountNumber": "ACCT123",
+    "revenue": 340003450,
+    "subAccountNumber": "SACCT726",
+    "timeOfExecution": "2023-01-15 10:30:00",
+    "product": "Stocks",
+    "contractingEntity": "Entity1"
+  },
+  {
+    "clientId": 2,
+    "tradeDetailsId": 2,
+    "accountNumber": "ACCT456",
+    "revenue": 543085789,
+    "subAccountNumber": "SACCT903",
+    "timeOfExecution": "2023-02-20 14:45:00",
+    "product": "Bonds",
+    "contractingEntity": "Entity2"
+  },
+  {
+    "clientId": 3,
+    "tradeDetailsId": 3,
+    "accountNumber": "ACCT789",
+    "revenue": 546896328,
+    "subAccountNumber": "SACCT213",
+    "timeOfExecution": "2023-03-10 09:15:00",
+    "product": "Options",
+    "contractingEntity": "Entity3"
+  }
+]
