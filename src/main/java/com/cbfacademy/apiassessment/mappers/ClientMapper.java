@@ -31,6 +31,5 @@ public interface ClientMapper {
     ClientTradeDetails mapToClientTradeDetails(ClientDetails clientDetails, TradeDetails tradeDetails);
 
     @Mapping(source = "clientDetails.clientId", target = "clientId")
-    @Mapping(source = "legalDetails.clientClassification", target = "clientClassification")
     ClientLegalDetails mapToClientLegalDetails(ClientDetails clientDetails, LegalDetails legalDetails);
 }

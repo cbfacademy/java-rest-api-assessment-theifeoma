@@ -1,10 +1,13 @@
 package com.cbfacademy.apiassessment.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ClientLegalDetails {
     private Long legalDetailsId;
     private Long clientId;

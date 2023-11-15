@@ -26,4 +26,12 @@ public class ClientLegalDetailsService {
     public List<ClientLegalDetails> getAllClientLegalDetails() throws IOException {
         return clientLegalDetailsRepository.getAll();
     }
+
+    public List<ClientLegalDetails> getAllClientsByStatus(String status) throws IOException {
+        return clientLegalDetailsRepository.getByStatus(status);
+    }
+
+    public List<ClientLegalDetails> getAllClientsByRiskRating(String riskRating) throws IOException {
+        return clientLegalDetailsRepository.getByRiskRating(riskRating);
+    }
 }

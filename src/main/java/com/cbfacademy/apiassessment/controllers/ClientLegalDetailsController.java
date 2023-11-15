@@ -6,6 +6,7 @@ import com.cbfacademy.apiassessment.services.ClientLegalDetailsService;
 import com.cbfacademy.apiassessment.services.ClientTradeDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +26,15 @@ public class ClientLegalDetailsController {
     @GetMapping("/all-clients")
     public List<ClientLegalDetails> getAllClients() throws IOException {
         return clientLegalDetailsService.getAllClientLegalDetails();
+    }
+
+    @GetMapping("/all-clients/status/{status}")
+    public List<ClientLegalDetails> getAllClientsByStatus(@PathVariable String status) throws IOException {
+        return clientLegalDetailsService.getAllClientsByStatus(status);
+    }
+
+    @GetMapping("/all-clients/risk-rating/{riskRating}")
+    public List<ClientLegalDetails> getAllClientsByRiskRating(@PathVariable String riskRating) throws IOException {
+        return clientLegalDetailsService.getAllClientsByRiskRating(riskRating);
     }
 }

@@ -1,10 +1,13 @@
 package com.cbfacademy.apiassessment.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class LegalDetails {
     private Long legalDetailsId;
     private String lei;
@@ -16,5 +19,4 @@ public class LegalDetails {
     private String regulatorName;
     private String regulatorId;
     private String capacity;
-    private String clientClassification;
 }

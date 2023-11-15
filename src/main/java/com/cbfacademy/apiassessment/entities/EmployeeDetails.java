@@ -1,10 +1,13 @@
 package com.cbfacademy.apiassessment.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class EmployeeDetails {
     private Long employeeId;
     private String firstName;

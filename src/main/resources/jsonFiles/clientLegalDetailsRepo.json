@@ -1,0 +1,44 @@
+[
+  {
+    "legalDetailsId": 1,
+    "clientId": 1,
+    "lei": "LEI123",
+    "clientLegalName": "UBS Limited",
+    "clientName": "UBS",
+    "riskRating": "High",
+    "nextReviewDate": "2023-01-01",
+    "clientStatus": "Active",
+    "regulatorName": "Regulator1",
+    "regulatorId": "1001",
+    "capacity": "Full",
+    "clientClassification": "Gold"
+  },
+  {
+    "legalDetailsId": 2,
+    "clientId": 2,
+    "lei": "LEI456",
+    "clientLegalName": "Dell Technologies",
+    "clientName": "Dell",
+    "riskRating": "Medium",
+    "nextReviewDate": "2023-02-01",
+    "clientStatus": "Inactive",
+    "regulatorName": "Regulator2",
+    "regulatorId": "1002",
+    "capacity": "Partial",
+    "clientClassification": "Silver"
+  },
+  {
+    "legalDetailsId": 3,
+    "clientId": 3,
+    "lei": "LEI789",
+    "clientLegalName": "JBL Incorporated",
+    "clientName": "JBL",
+    "riskRating": "Low",
+    "nextReviewDate": "2023-03-01",
+    "clientStatus": "Active",
+    "regulatorName": "Regulator3",
+    "regulatorId": "1003",
+    "capacity": "Limited",
+    "clientClassification": "Platinum"
+  }
+]

@@ -1,5 +1,6 @@
 package com.cbfacademy.apiassessment.repositories;
 
+import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.cbfacademy.apiassessment.dto.ClientLegalDetails;
 import com.cbfacademy.apiassessment.dto.ClientTradeDetails;
 import com.cbfacademy.apiassessment.helpers.CSVDataConverter;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Repository;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.cbfacademy.apiassessment.constants.Const.*;
 
@@ -49,5 +52,35 @@ public class ClientLegalDetailsRepository {
         List<ClientLegalDetails> clientLegalDetailsList = objectMapper.readValue(jsonFile, new TypeReference<List<ClientLegalDetails>>() {
         });
         return clientLegalDetailsList != null ? clientLegalDetailsList : new ArrayList<>();
+    }
+
+    //get by risk rating
+    public List<ClientLegalDetails> getByRiskRating(String riskRating) throws IOException{
+        List<ClientLegalDetails> clientLegalDetailsList = getAll();
+
+        // Filter by risk rating criteria
+        List<ClientLegalDetails> filteredList = clientLegalDetailsList.stream()
+                .filter(details -> riskRating.equalsIgnoreCase(details.getRiskRating()))
+                .collect(Collectors.toList());
+
+        // Sort the filtered clients by classification
+        filteredList.sort(Comparator.comparing(ClientLegalDetails::getRiskRating));
+
+        return filteredList;
+    }
+
+    //get by status
+    public List<ClientLegalDetails> getByStatus(String status) throws IOException{
+        List<ClientLegalDetails> clientLegalDetailsList = getAll();
+
+        // Filter by status criteria
+        List<ClientLegalDetails> filteredList = clientLegalDetailsList.stream()
+                .filter(details -> status.equalsIgnoreCase(details.getClientStatus()))
+                .collect(Collectors.toList());
+
+        // Sort the filtered clients by classification
+        filteredList.sort(Comparator.comparing(ClientLegalDetails::getClientStatus));
+
+        return filteredList;
     }
 }

@@ -271,7 +271,6 @@ public class CSVDataConverter {
                 legalDetails.setRegulatorName(data[7]);
                 legalDetails.setRegulatorId(data[8]);
                 legalDetails.setCapacity(data[9]);
-                legalDetails.setClientClassification(data[10]);
 
                 legalDetailsList.add(legalDetails);
             }
