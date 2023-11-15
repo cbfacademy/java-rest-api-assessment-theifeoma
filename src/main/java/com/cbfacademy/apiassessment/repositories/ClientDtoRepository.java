@@ -95,12 +95,12 @@ public class ClientDtoRepository {
         objectMapper.writeValue(jsonFile, data);
     }
 
-    public List<Object> findAllByRole(String role) throws IOException {
-        List<ClientDto> clients = getAllDto();
-        return clients.stream()
-                .filter(client -> client != null && client.getRole().equalsIgnoreCase(role))
-                .collect(Collectors.toList());
-    }
+//    public List<ClientDto> findAllByRole(String role) throws IOException {
+//        List<ClientDto> clients = getAllDto();
+//        return clients.stream()
+//                .filter(client -> client != null && client.getRole().equalsIgnoreCase(role))
+//                .collect(Collectors.toList());
+//    }
 
     public boolean updateClientEmail(Long clientId, String newEmail) throws IOException {
         List<ClientDto> clients = getAllDto();
@@ -113,21 +113,14 @@ public class ClientDtoRepository {
         if (clientOptional.isPresent()) {
             ClientDto clientToUpdate = clientOptional.get();
 
-            log.info(clientToUpdate.toString());
-
             // Update the email address
             clientToUpdate.setEmail(newEmail);
-
-            log.info(clientToUpdate.toString());
 
             // Save the updated client list
             saveClientDto(clients);
 
-            log.info(clientToUpdate.toString());
-
             return true; // Update successful
         }
-
         return false; // Client not found
     }
 }

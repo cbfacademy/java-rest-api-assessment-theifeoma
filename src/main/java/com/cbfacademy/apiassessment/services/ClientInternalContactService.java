@@ -1,10 +1,7 @@
 package com.cbfacademy.apiassessment.services;
 
-import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.cbfacademy.apiassessment.dto.ClientInternalContact;
-import com.cbfacademy.apiassessment.dto.ClientLegalDetails;
 import com.cbfacademy.apiassessment.repositories.ClientInternalContactRepository;
-import com.cbfacademy.apiassessment.repositories.ClientLegalDetailsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,36 +13,36 @@ import java.util.NoSuchElementException;
 
 @Service
 public class ClientInternalContactService {
+
     private final ClientInternalContactRepository clientInternalContactRepository;
     private static final Logger log = LoggerFactory.getLogger(ClientInternalContactService.class);
 
     @Autowired
-    public ClientInternalContactService(ClientInternalContactRepository clientInternalContactRepository){
+    public ClientInternalContactService(ClientInternalContactRepository clientInternalContactRepository) {
         this.clientInternalContactRepository = clientInternalContactRepository;
     }
 
-    public List<ClientInternalContact> getAllClientInternalContact() throws IOException {
-        return clientInternalContactRepository.getAll();
-    }
-
-    public List<ClientInternalContact> findEmployeeByRole(String role) throws IOException {
-        List<ClientInternalContact> employees = clientInternalContactRepository.findAllByRole(role);
-
-        if (employees.isEmpty()) {
-            throw new NoSuchElementException("No employee found with role: " + role);
+    public List<ClientInternalContact> getAllClientInternalContact() {
+        try {
+            return clientInternalContactRepository.getAll();
+        } catch (IOException e) {
+            log.error("Error getting all client internal contacts: {}", e.getMessage());
+            throw new RuntimeException("An error occurred while retrieving client internal contacts.");
         }
-
-        return employees;
     }
 
-    //get by employeeId
-//    public ClientInternalContact findEmployeeById(Long employeeId) throws IOException{
-//        boolean employeeExists = clientInternalContactRepository.existsByEmployeeId(employeeId);
-//
-//        if(!employeeExists){
-//            throw new IllegalStateException("Employee with Employee ID: " + employeeId + " exists");
-//        }
-//
-//        return null;
-//    }
+    public List<ClientInternalContact> findEmployeeByRole(String role) {
+        try {
+            List<ClientInternalContact> employees = clientInternalContactRepository.findAllByRole(role);
+
+            if (employees.isEmpty()) {
+                throw new NoSuchElementException("No employee found with role: " + role);
+            }
+
+            return employees;
+        } catch (IOException e) {
+            log.error("Error finding employees by role: {}", e.getMessage());
+            throw new RuntimeException("An error occurred while finding employees by role.");
+        }
+    }
 }

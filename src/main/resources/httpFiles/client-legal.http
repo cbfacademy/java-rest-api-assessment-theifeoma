@@ -4,7 +4,10 @@ GET http://localhost:7070/client-legal-details/all-clients
 <> 2023-11-14T231906.200.json
 
 ###
-GET http://localhost:7070/client-legal-details/all-clients/risk-rating/high
+GET http://localhost:7070/client-legal-details/all-clients/risk-rating/hih
 
 ###
-GET http://localhost:7070/client-legal-details/all-clients/status/active
+GET http://localhost:7070/client-legal-details/all-clients/status/actiive
+
+###
+GET http://localhost:7070/client-legal-details/sort/bank
