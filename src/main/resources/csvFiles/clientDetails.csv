@@ -1,4 +1,16 @@
 clientId,firstName,middleName,familyName,email,role,telephoneNumber,birthDate,recordCreationDate,lastContactedDate,clientClassification
-1,John,A,Smith,john.smith@example.com,Manager,123-456-7890,1990-01-01,2022-01-01,2022-10-15,Gold
-2,Alice,B,Jones,alice.jones@example.com,Employee,987-654-3210,1985-05-15,2022-01-02,2022-09-20,Silver
-3,Michael,,Johnson,michael.johnson@example.com,Manager,111-222-3333,1988-11-30,2022-01-03,2022-11-05,Platinum
+541,John,Robert,Doe,john.doe@example.com,Customer,+44 20 1234 5678,1985-03-15,2023-01-01,2023-10-20,Gold
+542,Jane,Alice,Smith,jane.smith@example.com,Manager,+44 20 8765 4321,1978-07-22,2023-01-05,2023-09-15,Silver
+543,Robert,James,Johnson,robert.johnson@example.com,Employee,+44 20 3456 7890,1990-12-10,2023-02-10,2023-11-02,Bronze
+544,Emily,Louise,Jackson,emily.jackson@example.com,Client Services Manager,+44 20 9876 5432,1982-05-03,2023-03-20,2023-08-10,Gold
+545,Michael,David,Green,michael.green@example.com,Financial Analyst,+44 20 2345 6789,1975-09-18,2023-04-15,2023-10-30,Silver
+546,Laura,Megan,Davis,laura.davis@example.com,Marketing Coordinator,+44 20 8765 4321,1988-01-25,2023-05-05,2023-09-05,Bronze
+547,Oscar,William,Turner,oscar.turner@example.com,Product Manager,+44 20 7654 3210,1983-11-12,2023-06-10,2023-11-15,Gold
+548,Sophie,Grace,Roberts,sophie.roberts@example.com,Client Services Manager,+44 20 1234 5678,1970-04-30,2023-07-01,2023-10-02,Silver
+549,George,Andrew,Hill,george.hill@example.com,IT Consultant,+44 20 2345 6789,1987-08-07,2023-08-15,2023-11-10,Bronze
+550,Amy,Elizabeth,White,amy.white@example.com,Project Manager,+44 20 3456 7890,1995-02-14,2023-09-20,2023-09-30,Gold
+551,Liam,Thomas,Anderson,liam.anderson@example.com,IT Consultant,+44 20 9876 5432,1980-06-28,2023-10-05,2023-11-05,Silver
+552,Olivia,Mia,Baker,olivia.baker@example.com,Software Developer,+44 20 8765 4321,1992-09-03,2023-11-10,2023-11-20,Bronze
+553,Jack,Aiden,Hall,jack.hall@example.com,Client Services Manager,+44 20 7654 3210,1973-03-17,2023-12-15,2023-12-25,Gold
+554,Isabella,Chloe,Ward,isabella.ward@example.com,Financial Analyst,+44 20 1234 5678,1984-12-01,2024-01-01,2024-01-10,Silver
+555,Noah,Emily,Cooper,noah.cooper@example.com,Software Developer,+44 20 2345 6789,1998-04-22,2024-02-05,2024-02-15,Bronze

@@ -1,32 +1,152 @@
 [
   {
-    "clientId": 1,
-    "tradeDetailsId": 1,
-    "accountNumber": "ACCT123",
-    "revenue": 340003450,
-    "subAccountNumber": "SACCT726",
-    "timeOfExecution": "2023-01-15 10:30:00",
+    "clientId": 541,
+    "tradeDetailsId": 701,
+    "accountNumber": "ACCT123456",
+    "revenue": 1502450,
+    "subAccountNumber": "SA123",
+    "timeOfExecution": "2023-12-01 09:30:00",
     "product": "Stocks",
-    "contractingEntity": "Entity1"
+    "contractingEntity": "London"
   },
   {
-    "clientId": 2,
-    "tradeDetailsId": 2,
-    "accountNumber": "ACCT456",
-    "revenue": 543085789,
-    "subAccountNumber": "SACCT903",
-    "timeOfExecution": "2023-02-20 14:45:00",
+    "clientId": 542,
+    "tradeDetailsId": 702,
+    "accountNumber": "ACCT234567",
+    "revenue": 2201189,
+    "subAccountNumber": "SA234",
+    "timeOfExecution": "2023-11-15 10:15:00",
     "product": "Bonds",
-    "contractingEntity": "Entity2"
+    "contractingEntity": "Paris"
   },
   {
-    "clientId": 3,
-    "tradeDetailsId": 3,
-    "accountNumber": "ACCT789",
-    "revenue": 546896328,
-    "subAccountNumber": "SACCT213",
-    "timeOfExecution": "2023-03-10 09:15:00",
-    "product": "Options",
-    "contractingEntity": "Entity3"
+    "clientId": 543,
+    "tradeDetailsId": 703,
+    "accountNumber": "ACCT345678",
+    "revenue": 900332,
+    "subAccountNumber": "SA345",
+    "timeOfExecution": "2023-10-20 14:45:00",
+    "product": "Derivatives",
+    "contractingEntity": "New York"
+  },
+  {
+    "clientId": 544,
+    "tradeDetailsId": 704,
+    "accountNumber": "ACCT456789",
+    "revenue": 3509876,
+    "subAccountNumber": "SA456",
+    "timeOfExecution": "2023-09-25 11:20:00",
+    "product": "Commodities",
+    "contractingEntity": "Hong Kong"
+  },
+  {
+    "clientId": 545,
+    "tradeDetailsId": 705,
+    "accountNumber": "ACCT567890",
+    "revenue": 1807650,
+    "subAccountNumber": "SA567",
+    "timeOfExecution": "2023-08-30 13:05:00",
+    "product": "Stocks",
+    "contractingEntity": "London"
+  },
+  {
+    "clientId": 546,
+    "tradeDetailsId": 706,
+    "accountNumber": "ACCT678901",
+    "revenue": 2805543,
+    "subAccountNumber": "SA678",
+    "timeOfExecution": "2023-07-05 16:40:00",
+    "product": "Bonds",
+    "contractingEntity": "Hong Kong"
+  },
+  {
+    "clientId": 547,
+    "tradeDetailsId": 707,
+    "accountNumber": "ACCT789012",
+    "revenue": 4204789,
+    "subAccountNumber": "SA789",
+    "timeOfExecution": "2023-06-10 09:00:00",
+    "product": "Derivatives",
+    "contractingEntity": "Geneva"
+  },
+  {
+    "clientId": 548,
+    "tradeDetailsId": 708,
+    "accountNumber": "ACCT890123",
+    "revenue": 1602365,
+    "subAccountNumber": "SA890",
+    "timeOfExecution": "2023-05-15 12:30:00",
+    "product": "Commodities",
+    "contractingEntity": "London"
+  },
+  {
+    "clientId": 549,
+    "tradeDetailsId": 709,
+    "accountNumber": "ACCT901234",
+    "revenue": 3008921,
+    "subAccountNumber": "SA901",
+    "timeOfExecution": "2023-04-20 14:55:00",
+    "product": "Stocks",
+    "contractingEntity": "Paris"
+  },
+  {
+    "clientId": 550,
+    "tradeDetailsId": 710,
+    "accountNumber": "ACCT012345",
+    "revenue": 2506542,
+    "subAccountNumber": "SA012",
+    "timeOfExecution": "2023-03-25 10:10:00",
+    "product": "Bonds",
+    "contractingEntity": "London"
+  },
+  {
+    "clientId": 551,
+    "tradeDetailsId": 711,
+    "accountNumber": "ACCT123456",
+    "revenue": 1801100,
+    "subAccountNumber": "SA123",
+    "timeOfExecution": "2023-02-28 11:45:00",
+    "product": "Derivatives",
+    "contractingEntity": "Madrid"
+  },
+  {
+    "clientId": 552,
+    "tradeDetailsId": 712,
+    "accountNumber": "ACCT234567",
+    "revenue": 3109987,
+    "subAccountNumber": "SA234",
+    "timeOfExecution": "2023-01-03 13:20:00",
+    "product": "Commodities",
+    "contractingEntity": "New York"
+  },
+  {
+    "clientId": 553,
+    "tradeDetailsId": 713,
+    "accountNumber": "ACCT345678",
+    "revenue": 4002123,
+    "subAccountNumber": "SA345",
+    "timeOfExecution": "2022-12-09 09:30:00",
+    "product": "Stocks",
+    "contractingEntity": "Paris"
+  },
+  {
+    "clientId": 554,
+    "tradeDetailsId": 714,
+    "accountNumber": "ACCT456789",
+    "revenue": 2700890,
+    "subAccountNumber": "SA456",
+    "timeOfExecution": "2022-11-14 12:15:00",
+    "product": "Bonds",
+    "contractingEntity": "Geneva"
+  },
+  {
+    "clientId": 555,
+    "tradeDetailsId": 715,
+    "accountNumber": "ACCT567890",
+    "revenue": 3406543,
+    "subAccountNumber": "SA567",
+    "timeOfExecution": "2022-10-19 14:50:00",
+    "product": "Derivatives",
+    "contractingEntity": "Hong Kong"
   }
 ]
