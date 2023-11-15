@@ -35,10 +35,6 @@ public class ClientDtoController {
         clientDetailsService.deleteClientD(clientId);
     }
 
-    @GetMapping("/sort/{classification}")
-    public List<ClientDto> findClientsByClassification(@PathVariable String classification) throws IOException {
-        return clientDetailsService.findClientsByClassification(classification);
-    }
 
     @PutMapping("/update/{clientId}")
     public String updateClientEmail(@PathVariable Long clientId,

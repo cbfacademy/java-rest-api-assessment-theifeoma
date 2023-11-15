@@ -11,7 +11,7 @@
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA123",
     "capacity": "Large",
-    "clientClassification": "Gold"
+    "clientLegalClassification": "Bank"
   },
   {
     "legalDetailsId": 102,
@@ -25,7 +25,7 @@
     "regulatorName": "Prudential Regulation Authority (PRA)",
     "regulatorId": "PRA456",
     "capacity": "Medium",
-    "clientClassification": "Silver"
+    "clientLegalClassification": "Investment"
   },
   {
     "legalDetailsId": 103,
@@ -39,7 +39,7 @@
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA789",
     "capacity": "Small",
-    "clientClassification": "Bronze"
+    "clientLegalClassification": "Bank"
   },
   {
     "legalDetailsId": 104,
@@ -53,7 +53,7 @@
     "regulatorName": "Prudential Regulation Authority (PRA)",
     "regulatorId": "PRA101",
     "capacity": "Principle",
-    "clientClassification": "Gold"
+    "clientLegalClassification": "Bank"
   },
   {
     "legalDetailsId": 105,
@@ -67,7 +67,7 @@
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA112",
     "capacity": "Medium",
-    "clientClassification": "Silver"
+    "clientLegalClassification": "Investment"
   },
   {
     "legalDetailsId": 106,
@@ -81,7 +81,7 @@
     "regulatorName": "Prudential Regulation Authority (PRA)",
     "regulatorId": "PRA223",
     "capacity": "Principle",
-    "clientClassification": "Bronze"
+    "clientLegalClassification": "Bank"
   },
   {
     "legalDetailsId": 107,
@@ -95,7 +95,7 @@
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA334",
     "capacity": "Large",
-    "clientClassification": "Gold"
+    "clientLegalClassification": "Bank"
   },
   {
     "legalDetailsId": 108,
@@ -109,7 +109,7 @@
     "regulatorName": "Prudential Regulation Authority (PRA)",
     "regulatorId": "PRA445",
     "capacity": "Principle",
-    "clientClassification": "Silver"
+    "clientLegalClassification": "Investment"
   },
   {
     "legalDetailsId": 109,
@@ -123,7 +123,7 @@
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA556",
     "capacity": "Medium",
-    "clientClassification": "Bronze"
+    "clientLegalClassification": "Bank"
   },
   {
     "legalDetailsId": 110,
@@ -137,7 +137,7 @@
     "regulatorName": "Prudential Regulation Authority (PRA)",
     "regulatorId": "PRA667",
     "capacity": "Principle",
-    "clientClassification": "Gold"
+    "clientLegalClassification": "Investment"
   },
   {
     "legalDetailsId": 111,
@@ -151,7 +151,7 @@
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA778",
     "capacity": "Small",
-    "clientClassification": "Silver"
+    "clientLegalClassification": "Bank"
   },
   {
     "legalDetailsId": 112,
@@ -165,7 +165,7 @@
     "regulatorName": "Prudential Regulation Authority (PRA)",
     "regulatorId": "PRA889",
     "capacity": "Principle",
-    "clientClassification": "Bronze"
+    "clientLegalClassification": "Investment"
   },
   {
     "legalDetailsId": 113,
@@ -179,7 +179,7 @@
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA990",
     "capacity": "Large",
-    "clientClassification": "Gold"
+    "clientLegalClassification": "Bank"
   },
   {
     "legalDetailsId": 114,
@@ -193,7 +193,7 @@
     "regulatorName": "Prudential Regulation Authority (PRA)",
     "regulatorId": "PRA001",
     "capacity": "Principle",
-    "clientClassification": "Silver"
+    "clientLegalClassification": "Investment"
   },
   {
     "legalDetailsId": 115,
@@ -207,6 +207,6 @@
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA1122",
     "capacity": "Medium",
-    "clientClassification": "Bronze"
+    "clientLegalClassification": "Bank"
   }
 ]

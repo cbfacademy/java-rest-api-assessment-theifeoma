@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class ClientDetailsService{
@@ -56,16 +55,6 @@ public class ClientDetailsService{
         clientDtoRepository.saveClientDto(clients);
     }
 
-    public List<ClientDto> findClientsByClassification(String classification) throws IOException {
-        List<ClientDto> clients = clientDtoRepository.findClientsByClassification(classification);
-
-        if (clients.isEmpty()) {
-            throw new NoSuchElementException("No clients found with classification: " + classification);
-        }
-
-        return clients;
-    }
-
     public String updateClientEmail(Long clientId, String newEmail) {
         try {
             if (clientDtoRepository.updateClientEmail(clientId, newEmail)) {
@@ -78,39 +67,4 @@ public class ClientDetailsService{
         }
     }
 
-//    public List<ClientDetails> sortAllClientsByRole(String role) throws IOException {
-//        List<ClientDetails> clients = clientDtoRepository.getAll();
-//        List<ClientDetails> clientsWithRole = clients.stream()
-//                .filter(client -> client != null && client.getRole().equalsIgnoreCase(role))
-//                .collect(Collectors.toList());
-//
-//        if (clientsWithRole.isEmpty()) {
-//            throw new IllegalStateException("No clients found with role: " + role);
-//        }
-//
-//        // Sorting the clients with the specified role by their ID
-//        clientsWithRole.sort(Comparator.comparing(ClientDetails::getClientId));
-//        return clientsWithRole;
-//    }
-
-//    public void updateClient(Long clientId, ClientDetails updatedClient) throws IOException {
-//        List<ClientDetails> clients = clientDtoRepository.getAll();
-//
-//        boolean clientExists = false;
-//
-//        for (Object client : clients) {
-//            if (client instanceof ClientDetails && ((ClientDetails) client).getClientId().equals(clientId)) {
-//                clients.remove(client);
-//                clients.add(updatedClient);
-//                clientExists = true;
-//                break;
-//            }
-//        }
-//
-//        if (!clientExists) {
-//            throw new IllegalStateException("Client with ID: " + clientId + " not found");
-//        }
-//
-//        clientDtoRepository.save(clients);
-//    }
 }

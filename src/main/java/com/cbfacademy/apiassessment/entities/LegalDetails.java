@@ -19,4 +19,5 @@ public class LegalDetails {
     private String regulatorName;
     private String regulatorId;
     private String capacity;
+    private String clientLegalClassification;
 }

@@ -102,20 +102,6 @@ public class ClientDtoRepository {
                 .collect(Collectors.toList());
     }
 
-    public List<ClientDto> findClientsByClassification(String classification) throws IOException{
-        List<ClientDto> clients = getAllDto();
-
-        // Filter clients by the given classification
-        List<ClientDto> filteredClients = clients.stream()
-                .filter(client -> classification.equalsIgnoreCase(client.getClientClassification()))
-                .collect(Collectors.toList());
-
-        // Sort the filtered clients by classification
-        filteredClients.sort(Comparator.comparing(ClientDto::getClientClassification));
-
-        return filteredClients;
-    }
-
     public boolean updateClientEmail(Long clientId, String newEmail) throws IOException {
         List<ClientDto> clients = getAllDto();
 

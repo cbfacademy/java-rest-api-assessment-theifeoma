@@ -20,5 +20,5 @@ public class ClientLegalDetails {
     private String regulatorName;
     private String regulatorId;
     private String capacity;
-    private String clientClassification;
+    private String clientLegalClassification;
 }

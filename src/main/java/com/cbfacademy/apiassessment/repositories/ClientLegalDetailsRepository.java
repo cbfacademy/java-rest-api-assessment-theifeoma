@@ -83,4 +83,18 @@ public class ClientLegalDetailsRepository {
 
         return filteredList;
     }
+
+    public List<ClientLegalDetails> findClientsByClassification(String classification) throws IOException{
+        List<ClientLegalDetails> clients = getAll();
+
+        // Filter clients by the given classification
+        List<ClientLegalDetails> filteredClients = clients.stream()
+                .filter(client -> classification.equalsIgnoreCase(client.getClientLegalClassification()))
+                .collect(Collectors.toList());
+
+        // Sort the filtered clients by classification
+        filteredClients.sort(Comparator.comparing(ClientLegalDetails::getClientLegalClassification));
+
+        return filteredClients;
+    }
 }

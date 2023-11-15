@@ -19,5 +19,4 @@ public class ClientDetails {
     private String birthDate;
     private String recordCreationDate;
     private String lastContactedDate;
-    private String clientClassification;
 }

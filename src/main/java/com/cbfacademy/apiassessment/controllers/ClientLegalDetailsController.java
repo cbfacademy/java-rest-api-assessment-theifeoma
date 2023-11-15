@@ -1,5 +1,6 @@
 package com.cbfacademy.apiassessment.controllers;
 
+import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.cbfacademy.apiassessment.dto.ClientLegalDetails;
 import com.cbfacademy.apiassessment.dto.ClientTradeDetails;
 import com.cbfacademy.apiassessment.services.ClientLegalDetailsService;
@@ -31,6 +32,11 @@ public class ClientLegalDetailsController {
     @GetMapping("/all-clients/status/{status}")
     public List<ClientLegalDetails> getAllClientsByStatus(@PathVariable String status) throws IOException {
         return clientLegalDetailsService.getAllClientsByStatus(status);
+    }
+
+    @GetMapping("/sort/{classification}")
+    public List<ClientLegalDetails> findClientsByClassification(@PathVariable String classification) throws IOException {
+        return clientLegalDetailsService.findClientsByClassification(classification);
     }
 
     @GetMapping("/all-clients/risk-rating/{riskRating}")

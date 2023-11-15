@@ -1,5 +1,6 @@
 package com.cbfacademy.apiassessment.services;
 
+import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.cbfacademy.apiassessment.dto.ClientLegalDetails;
 import com.cbfacademy.apiassessment.dto.ClientTradeDetails;
 import com.cbfacademy.apiassessment.repositories.ClientLegalDetailsRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ClientLegalDetailsService {
@@ -25,6 +27,16 @@ public class ClientLegalDetailsService {
 
     public List<ClientLegalDetails> getAllClientLegalDetails() throws IOException {
         return clientLegalDetailsRepository.getAll();
+    }
+
+    public List<ClientLegalDetails> findClientsByClassification(String classification) throws IOException {
+        List<ClientLegalDetails> clients = clientLegalDetailsRepository.findClientsByClassification(classification);
+
+        if (clients.isEmpty()) {
+            throw new NoSuchElementException("No clients found with classification: " + classification);
+        }
+
+        return clients;
     }
 
     public List<ClientLegalDetails> getAllClientsByStatus(String status) throws IOException {

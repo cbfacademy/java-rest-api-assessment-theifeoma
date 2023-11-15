@@ -227,7 +227,6 @@ public class CSVDataConverter {
                 clientDetails.setBirthDate(data[7]);
                 clientDetails.setRecordCreationDate(data[8]);
                 clientDetails.setLastContactedDate(data[9]);
-                clientDetails.setClientClassification(data[10]);
                 clientDetailsList.add(clientDetails);
             }
         }
@@ -319,6 +318,7 @@ public class CSVDataConverter {
                 legalDetails.setRegulatorName(data[7]);
                 legalDetails.setRegulatorId(data[8]);
                 legalDetails.setCapacity(data[9]);
+                legalDetails.setClientLegalClassification(data[10]);
 
                 legalDetailsList.add(legalDetails);
             }
