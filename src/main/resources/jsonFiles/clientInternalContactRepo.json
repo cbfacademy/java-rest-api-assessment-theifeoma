@@ -1,0 +1,35 @@
+[
+  {
+    "clientId": 1,
+    "employeeId": 1,
+    "firstName": "Mark",
+    "middleName": "A",
+    "familyName": "Johnson",
+    "email": "mark.johnson@example.com",
+    "role": "Manager",
+    "roleId": 101,
+    "telephoneNumber": "111-222-3333"
+  },
+  {
+    "clientId": 2,
+    "employeeId": 2,
+    "firstName": "Linda",
+    "middleName": "B",
+    "familyName": "Williams",
+    "email": "linda.williams@example.com",
+    "role": "Employee",
+    "roleId": 102,
+    "telephoneNumber": "222-333-4444"
+  },
+  {
+    "clientId": 3,
+    "employeeId": 3,
+    "firstName": "David",
+    "middleName": "C",
+    "familyName": "Jones",
+    "email": "david.jones@example.com",
+    "role": "Manager",
+    "roleId": 101,
+    "telephoneNumber": "333-444-5555"
+  }
+]

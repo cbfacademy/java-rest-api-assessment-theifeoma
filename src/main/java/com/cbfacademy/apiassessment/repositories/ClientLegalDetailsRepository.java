@@ -26,7 +26,7 @@ public class ClientLegalDetailsRepository {
     private File jsonFile;
     private ObjectMapper objectMapper;
 
-    private static final Logger log = LoggerFactory.getLogger(ClientTradeDetailsRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(ClientLegalDetailsRepository.class);
 
     public ClientLegalDetailsRepository(@Value(LEGAL_JSON_REPOSITORY) String filePath) {
         this.jsonFile = new File(filePath);

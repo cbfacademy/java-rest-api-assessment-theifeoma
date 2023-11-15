@@ -1,6 +1,7 @@
 package com.cbfacademy.apiassessment.helpers;
 
 import com.cbfacademy.apiassessment.dto.ClientDto;
+import com.cbfacademy.apiassessment.dto.ClientInternalContact;
 import com.cbfacademy.apiassessment.dto.ClientLegalDetails;
 import com.cbfacademy.apiassessment.dto.ClientTradeDetails;
 import com.cbfacademy.apiassessment.entities.*;
@@ -154,6 +155,53 @@ public class CSVDataConverter {
         // Convert List of ClientTradeDetails objects to JSON
         try (FileWriter fileWriter = new FileWriter(jsonFile)) {
             String jsonData = objectMapper.writeValueAsString(clientLegalDetailsList);
+            fileWriter.write(jsonData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void convertCSVToDtoToClientInternalJson(List<String> csvFiles, String jsonFile) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<ClientInternalContact> clientInternalContactList = new ArrayList<>();
+
+        ClientMapper clientMapper = new ClientMapperImpl();
+
+        List<ClientDetails> clientDetailsList = new ArrayList<>();
+        List<EmployeeDetails> employeeDetailsList = new ArrayList<>();
+
+        // Loop through each CSV file and parse its data into the respective class lists
+        for (String csvFile : csvFiles) {
+            try (Reader reader = new FileReader(csvFile)) {
+                // Parse CSV data into the respective lists based on the file type
+                if (csvFile.endsWith("clientDetails.csv")) {
+                    clientDetailsList.addAll(parseCsvToClientDetails(reader));
+                } else if (csvFile.endsWith("employeeDetails.csv")) {
+                    employeeDetailsList.addAll(parseCsvToEmployeeDetails(reader));
+                } else {
+                    System.out.println("Unrecognized CSV file: " + csvFile);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Map ClientDetails and EmployeeDetails to ClientInternalContact and add to the final list
+        for (int i = 0; i < clientDetailsList.size() && i < employeeDetailsList.size(); i++) {
+            ClientDetails clientDetails = clientDetailsList.get(i);
+            EmployeeDetails employeeDetails = employeeDetailsList.get(i);
+
+            // TODO: handle exceptions
+            clientInternalContactList.add(clientMapper.mapToClientInternalContact(clientDetails, employeeDetails));
+        }
+
+        // Debugging
+        log.info("Size of clientInternalContactList list: {}", clientInternalContactList.size());
+        log.info("Contents of clientInternalContactList list: {}", clientInternalContactList);
+
+        // Convert List of ClientInternalContact objects to JSON
+        try (FileWriter fileWriter = new FileWriter(jsonFile)) {
+            String jsonData = objectMapper.writeValueAsString(clientInternalContactList);
             fileWriter.write(jsonData);
         } catch (IOException e) {
             e.printStackTrace();
