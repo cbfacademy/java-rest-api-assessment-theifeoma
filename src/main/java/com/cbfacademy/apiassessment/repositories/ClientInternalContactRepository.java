@@ -1,5 +1,6 @@
 package com.cbfacademy.apiassessment.repositories;
 
+import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.cbfacademy.apiassessment.dto.ClientInternalContact;
 import com.cbfacademy.apiassessment.dto.ClientLegalDetails;
 import com.cbfacademy.apiassessment.helpers.CSVDataConverter;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Repository;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.cbfacademy.apiassessment.constants.Const.*;
 
@@ -52,6 +55,46 @@ public class ClientInternalContactRepository {
     }
 
     //get by role
+    public List<ClientInternalContact> findAllByRole(String role) throws IOException {
+        List<ClientInternalContact> employees = getAll();
+        return employees.stream()
+                .filter(client -> client != null && client.getRole().equalsIgnoreCase(role))
+                .collect(Collectors.toList());
+    }
 
     //get by employeeId
+    public boolean existsByEmployeeId(Long employeeId) throws IOException {
+        List<ClientInternalContact> employees = getAll();
+
+        // Sort the list by clientId
+        employees.sort(Comparator.comparing(ClientInternalContact::getEmployeeId));
+
+        // Perform binary search
+        int index = binarySearchByEmployeeId(employees, employeeId);
+
+        // Check if the clientId was found
+        return index >= 0;
+    }
+
+    private int binarySearchByEmployeeId(List<ClientInternalContact> employees, Long employeeId) {
+        int start = 0;
+        int end = employees.size() - 1;
+
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            //gets the employee id in the mid-index of list
+            Long midVal = employees.get(mid).getClientId();
+            //compares the mid-val with the employeeId we are looking for
+            int cmp = midVal.compareTo(employeeId);
+
+            if (cmp < 0) {
+                start = mid + 1;
+            } else if (cmp > 0) {
+                end = mid - 1;
+            } else {
+                return mid; // Found
+            }
+        }
+        return -1; // Not found
+    }
 }

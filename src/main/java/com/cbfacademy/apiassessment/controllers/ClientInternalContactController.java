@@ -4,6 +4,7 @@ import com.cbfacademy.apiassessment.dto.ClientInternalContact;
 import com.cbfacademy.apiassessment.services.ClientInternalContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,5 +24,10 @@ public class ClientInternalContactController {
     @GetMapping("/all-clients")
     public List<ClientInternalContact> getAllClients() throws IOException {
         return clientInternalContactService.getAllClientInternalContact();
+    }
+
+    @GetMapping("/all-role/{role}")
+    public List<ClientInternalContact> findEmployeeByRole(@PathVariable String role) throws IOException{
+        return clientInternalContactService.findEmployeeByRole(role);
     }
 }
