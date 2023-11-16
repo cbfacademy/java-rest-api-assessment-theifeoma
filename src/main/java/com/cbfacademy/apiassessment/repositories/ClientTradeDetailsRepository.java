@@ -21,8 +21,8 @@ import static com.cbfacademy.apiassessment.constants.Const.TRADE_JSON_REPOSITORY
 @Repository
 public class ClientTradeDetailsRepository {
 
-    private File jsonFile;
-    private ObjectMapper objectMapper;
+    private final File jsonFile;
+    private final ObjectMapper objectMapper;
 
     private static final Logger log = LoggerFactory.getLogger(ClientTradeDetailsRepository.class);
 

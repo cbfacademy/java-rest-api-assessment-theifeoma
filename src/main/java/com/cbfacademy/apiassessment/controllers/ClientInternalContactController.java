@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,12 +21,12 @@ public class ClientInternalContactController {
     }
 
     @GetMapping("/all-clients")
-    public List<ClientInternalContact> getAllClients() throws IOException {
+    public List<ClientInternalContact> getAllClients(){
         return clientInternalContactService.getAllClientInternalContact();
     }
 
     @GetMapping("/all-role/{role}")
-    public List<ClientInternalContact> findEmployeeByRole(@PathVariable String role) throws IOException{
+    public List<ClientInternalContact> findEmployeeByRole(@PathVariable String role){
         return clientInternalContactService.findEmployeeByRole(role);
     }
 }

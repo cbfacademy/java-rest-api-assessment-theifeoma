@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -21,24 +20,24 @@ public class ClientDtoController {
     }
 
     @GetMapping("/all-clients")
-    public List<ClientDto> getAllClients() throws IOException {
+    public List<ClientDto> getAllClients() {
         return clientDetailsService.getAllDto();
     }
 
     @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addNewClient(@RequestBody ClientDto client) throws IOException {
+    public void addNewClient(@RequestBody ClientDto client){
         clientDetailsService.addNewClient(client);
     }
 
     @DeleteMapping("/delete/{clientId}")
-    public void deleteClient(@PathVariable Long clientId) throws IOException {
+    public void deleteClient(@PathVariable Long clientId) {
         clientDetailsService.deleteClientD(clientId);
     }
 
 
     @PutMapping("/update/{clientId}")
     public String updateClientEmail(@PathVariable Long clientId,
-                                    @RequestParam String newClientEmail) throws IOException {
+                                    @RequestParam String newClientEmail) {
         return clientDetailsService.updateClientEmail(clientId, newClientEmail);
     }
 }

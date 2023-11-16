@@ -1,6 +1,5 @@
 package com.cbfacademy.apiassessment.services;
 
-import com.cbfacademy.apiassessment.dto.ClientLegalDetails;
 import com.cbfacademy.apiassessment.dto.ClientTradeDetails;
 import com.cbfacademy.apiassessment.repositories.ClientTradeDetailsRepository;
 import org.slf4j.Logger;

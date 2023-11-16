@@ -1,8 +1,6 @@
 package com.cbfacademy.apiassessment.repositories;
 
-import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.cbfacademy.apiassessment.dto.ClientLegalDetails;
-import com.cbfacademy.apiassessment.dto.ClientTradeDetails;
 import com.cbfacademy.apiassessment.helpers.CSVDataConverter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,8 +21,8 @@ import static com.cbfacademy.apiassessment.constants.Const.*;
 @Repository
 public class ClientLegalDetailsRepository {
 
-    private File jsonFile;
-    private ObjectMapper objectMapper;
+    private final File jsonFile;
+    private final ObjectMapper objectMapper;
 
     private static final Logger log = LoggerFactory.getLogger(ClientLegalDetailsRepository.class);
 
@@ -49,9 +47,14 @@ public class ClientLegalDetailsRepository {
     }
 
     public List<ClientLegalDetails> getAll() throws IOException {
-        List<ClientLegalDetails> clientLegalDetailsList = objectMapper.readValue(jsonFile, new TypeReference<List<ClientLegalDetails>>() {
-        });
-        return clientLegalDetailsList != null ? clientLegalDetailsList : new ArrayList<>();
+        try {
+            List<ClientLegalDetails> clientLegalDetailsList = objectMapper.readValue(jsonFile, new TypeReference<List<ClientLegalDetails>>() {
+            });
+            return clientLegalDetailsList != null ? clientLegalDetailsList : new ArrayList<>();
+        } catch (IOException e) {
+            log.error("Error reading clientLegalDetails data from JSON file: {}", e.getMessage());
+            throw new RuntimeException("An error occurred while reading clientLegalDetails data.", e);
+        }
     }
 
     //get by risk rating

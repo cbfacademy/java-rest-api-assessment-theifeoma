@@ -12,14 +12,13 @@ import org.springframework.stereotype.Repository;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.cbfacademy.apiassessment.constants.Const.*;
 
 @Repository
 public class ClientDtoRepository {
-    private File jsonFile;
-    private ObjectMapper objectMapper;
+    private final File jsonFile;
+    private final ObjectMapper objectMapper;
 
     private static final Logger log = LoggerFactory.getLogger(ClientDtoRepository.class);
 
@@ -51,9 +50,14 @@ public class ClientDtoRepository {
 //    }
 
     public List<ClientDto> getAllDto() throws IOException {
-        List<ClientDto> clientDtoList = objectMapper.readValue(jsonFile, new TypeReference<List<ClientDto>>() {
-        });
-        return clientDtoList != null ? clientDtoList : new ArrayList<>();
+        try {
+            List<ClientDto> clientDtoList = objectMapper.readValue(jsonFile, new TypeReference<List<ClientDto>>() {
+            });
+            return clientDtoList != null ? clientDtoList : new ArrayList<>();
+        } catch (IOException e) {
+            log.error("Error reading clientDto data from JSON file: {}", e.getMessage());
+            throw new RuntimeException("An error occurred while reading clientDto data.", e);
+        }
     }
 
     public boolean existsByClientId(Long clientId) throws IOException {
@@ -91,8 +95,13 @@ public class ClientDtoRepository {
         return -1; // Not found
     }
 
-    public void saveClientDto(List<ClientDto> data) throws IOException {
-        objectMapper.writeValue(jsonFile, data);
+    public void saveClientDto(List<ClientDto> data) throws IOException{
+        try {
+            objectMapper.writeValue(jsonFile, data);
+        } catch (IOException e) {
+            log.error("Error saving clientDto data to JSON file: {}", e.getMessage());
+            throw new RuntimeException("An error occurred while saving clientDto data.", e);
+        }
     }
 
 //    public List<ClientDto> findAllByRole(String role) throws IOException {

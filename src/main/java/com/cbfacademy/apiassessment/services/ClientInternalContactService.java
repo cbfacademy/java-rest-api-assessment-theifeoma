@@ -45,4 +45,19 @@ public class ClientInternalContactService {
             throw new RuntimeException("An error occurred while finding employees by role.");
         }
     }
+
+    public ClientInternalContact getEmployeeById(Long employeeId){
+        try {
+            // Check if the employee exists
+            if (!clientInternalContactRepository.existsByEmployeeId(employeeId)) {
+                throw new IllegalStateException("Employee with Employee ID: " + employeeId + " does not exist");
+            }
+
+            // Retrieve the employee from the repository
+            return clientInternalContactRepository.getByEmployeeId(employeeId);
+        } catch (IOException e) {
+            log.error("Error getting employee by ID: {}", e.getMessage());
+            throw new RuntimeException("An error occurred while retrieving employee by ID.");
+        }
+    }
 }

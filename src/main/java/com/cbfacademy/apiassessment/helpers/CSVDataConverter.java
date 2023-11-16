@@ -49,7 +49,6 @@ public class CSVDataConverter {
             ClientDetails clientDetails = clientDetailsList.get(i);
             ClientAddress clientAddress = clientAddressList.get(i);
 
-            // TODO: handle exceptions
             clientDtos.add(clientMapper.mapToClientDto(clientDetails, clientAddress));
         }
 
@@ -97,7 +96,6 @@ public class CSVDataConverter {
             ClientDetails clientDetails = clientDetailsList.get(i);
             TradeDetails tradeDetails = tradeDetailsList.get(i);
 
-            // TODO: handle exceptions
             clientTradeDetailsList.add(clientMapper.mapToClientTradeDetails(clientDetails, tradeDetails));
         }
 
@@ -144,7 +142,6 @@ public class CSVDataConverter {
             ClientDetails clientDetails = clientDetailsList.get(i);
             LegalDetails legalDetails = legalDetailsList.get(i);
 
-            // TODO: handle exceptions
             clientLegalDetailsList.add(clientMapper.mapToClientLegalDetails(clientDetails, legalDetails));
         }
 
@@ -191,7 +188,6 @@ public class CSVDataConverter {
             ClientDetails clientDetails = clientDetailsList.get(i);
             EmployeeDetails employeeDetails = employeeDetailsList.get(i);
 
-            // TODO: handle exceptions
             clientInternalContactList.add(clientMapper.mapToClientInternalContact(clientDetails, employeeDetails));
         }
 
@@ -208,7 +204,7 @@ public class CSVDataConverter {
         }
     }
 
-    private static List<ClientDetails> parseCsvToClientDetails(Reader reader) throws IOException {
+    private List<ClientDetails> parseCsvToClientDetails(Reader reader) throws IOException {
         List<ClientDetails> clientDetailsList = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(reader)) {
             String line;
@@ -233,7 +229,7 @@ public class CSVDataConverter {
         return clientDetailsList;
     }
 
-    public List<ClientAddress> parseCsvToClientAddresses(Reader reader) throws IOException {
+    private List<ClientAddress> parseCsvToClientAddresses(Reader reader) throws IOException {
         List<ClientAddress> clientAddresses = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(reader)) {
             // Skip header if present
@@ -273,7 +269,7 @@ public class CSVDataConverter {
         return clientAddresses;
     }
 
-    public List<EmployeeDetails> parseCsvToEmployeeDetails(Reader reader) throws IOException {
+    private List<EmployeeDetails> parseCsvToEmployeeDetails(Reader reader) throws IOException {
         List<EmployeeDetails> employeeDetailsList = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(reader)) {
             // Skip header if present
@@ -298,7 +294,7 @@ public class CSVDataConverter {
         return employeeDetailsList;
     }
 
-    public List<LegalDetails> parseCsvToLegalDetails(Reader reader) throws IOException {
+    private List<LegalDetails> parseCsvToLegalDetails(Reader reader) throws IOException {
         List<LegalDetails> legalDetailsList = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(reader)) {
             // Skip header if present
@@ -326,7 +322,7 @@ public class CSVDataConverter {
         return legalDetailsList;
     }
 
-    public List<TradeDetails> parseCsvToTradeDetails(Reader reader) throws IOException {
+    private List<TradeDetails> parseCsvToTradeDetails(Reader reader) throws IOException {
         List<TradeDetails> tradeDetailsList = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(reader)) {
             // Skip header if present
@@ -343,8 +339,6 @@ public class CSVDataConverter {
                 tradeDetails.setTimeOfExecution(data[4]);
                 tradeDetails.setProduct(data[5]);
                 tradeDetails.setContractingEntity(data[6]);
-
-
 
                 tradeDetailsList.add(tradeDetails);
             }

@@ -1,8 +1,6 @@
 package com.cbfacademy.apiassessment.repositories;
 
-import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.cbfacademy.apiassessment.dto.ClientInternalContact;
-import com.cbfacademy.apiassessment.dto.ClientLegalDetails;
 import com.cbfacademy.apiassessment.helpers.CSVDataConverter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import static com.cbfacademy.apiassessment.constants.Const.*;
@@ -23,8 +22,8 @@ import static com.cbfacademy.apiassessment.constants.Const.*;
 @Repository
 public class ClientInternalContactRepository {
 
-    private File jsonFile;
-    private ObjectMapper objectMapper;
+    private final File jsonFile;
+    private final ObjectMapper objectMapper;
 
     private static final Logger log = LoggerFactory.getLogger(ClientInternalContactRepository.class);
 
@@ -49,9 +48,14 @@ public class ClientInternalContactRepository {
     }
 
     public List<ClientInternalContact> getAll() throws IOException {
-        List<ClientInternalContact> clientInternalContactList = objectMapper.readValue(jsonFile, new TypeReference<List<ClientInternalContact>>() {
-        });
-        return clientInternalContactList != null ? clientInternalContactList : new ArrayList<>();
+        try {
+            List<ClientInternalContact> clientInternalContactList = objectMapper.readValue(jsonFile, new TypeReference<List<ClientInternalContact>>() {
+            });
+            return clientInternalContactList != null ? clientInternalContactList : new ArrayList<>();
+        } catch (IOException e) {
+            log.error("Error reading internal contact data from JSON file: {}", e.getMessage());
+            throw new RuntimeException("An error occurred while reading internal contact data.", e);
+        }
     }
 
     //get by role
@@ -96,5 +100,15 @@ public class ClientInternalContactRepository {
             }
         }
         return -1; // Not found
+    }
+
+    public ClientInternalContact getByEmployeeId(Long employeeId) throws IOException {
+        List<ClientInternalContact> employees = getAll();
+
+        // Filter the list based on the employeeId
+        return employees.stream()
+                .filter(client -> client != null && client.getEmployeeId().equals(employeeId))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("No employee found with Employee ID: " + employeeId));
     }
 }

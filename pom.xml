@@ -28,7 +28,7 @@
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
-			<version>1.5.5.Final</version> <!-- Check for the latest version on Maven Central -->
+			<version>1.5.5.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -83,9 +83,6 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
-
-
-
 		</plugins>
 	</build>
 
