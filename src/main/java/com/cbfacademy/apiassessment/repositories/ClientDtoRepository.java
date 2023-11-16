@@ -16,7 +16,7 @@ import java.util.*;
 import static com.cbfacademy.apiassessment.constants.Const.*;
 
 @Repository
-public class ClientDtoRepository {
+public class ClientDtoRepository implements RepositoryInterface {
     private final File jsonFile;
     private final ObjectMapper objectMapper;
 
@@ -27,10 +27,11 @@ public class ClientDtoRepository {
         this.objectMapper = new ObjectMapper();
 
         // Call the initialization method to perform CSV to Dto to JSON conversion
-        initialiseDtoRepository();
+        initialiseRepository();
     }
 
-    private void initialiseDtoRepository() {
+    @Override
+    public void initialiseRepository() {
         // Check if the JSON file is empty
         if (jsonFile.length() == 0) {
             // If the JSON file is empty, perform the CSV to Dto to JSON conversion
@@ -38,7 +39,7 @@ public class ClientDtoRepository {
             csvDataConverter.convertCSVToDtoToClientDtoJson(CLIENT_DTO_CSV_DATA_FILES_LIST, JSON_REPOSITORY);
         } else {
             // If the JSON file is not empty, log a message and continue using the existing JSON data
-            log.info("JSON file is not empty. Skipping CSV to JSON conversion.");
+            log.info("Client Details JSON file is not empty. Skipping CSV to JSON conversion.");
         }
     }
 
@@ -48,6 +49,7 @@ public class ClientDtoRepository {
 //        CSVDataConverter csvDataConverter = new CSVDataConverter();
 //        csvDataConverter.convertCSVToDtoToJson(csvTestFiles, jsonDtoRepoTestFile);
 //    }
+
 
     public List<ClientDto> getAllDto() throws IOException {
         try {

@@ -11,6 +11,7 @@ public class Const {
     public static final String LEGAL_JSON_REPOSITORY = "src/main/resources/jsonFiles/clientLegalDetailsRepo.json";
 
     public static final String INTERNAL_CONTACT_JSON_REPOSITORY = "src/main/resources/jsonFiles/clientInternalContactRepo.json";
+
     public static final List<String> CLIENT_DTO_CSV_DATA_FILES_LIST = Arrays.asList("src/main/resources/csvFiles/clientAddress.csv", "src/main/resources/csvFiles/clientDetails.csv");
 
     public static final List<String> CLIENT_TRADE_DETAILS_CSV_DATA_FILES_LIST = Arrays.asList("src/main/resources/csvFiles/clientDetails.csv", "src/main/resources/csvFiles/tradeDetails.csv");

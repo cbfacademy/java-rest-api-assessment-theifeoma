@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 import static com.cbfacademy.apiassessment.constants.Const.*;
 
 @Repository
-public class ClientInternalContactRepository {
+public class ClientInternalContactRepository implements RepositoryInterface{
 
     private final File jsonFile;
     private final ObjectMapper objectMapper;
@@ -32,10 +32,11 @@ public class ClientInternalContactRepository {
         this.objectMapper = new ObjectMapper();
 
         // Call the initialization method to perform CSV to Dto to JSON conversion
-        initialiseInternalContactRepository();
+        initialiseRepository();
     }
 
-    private void initialiseInternalContactRepository() {
+    @Override
+    public void initialiseRepository() {
         // Check if the JSON file is empty
         if (jsonFile.length() == 0) {
             // If the JSON file is empty, perform the CSV to Dto to JSON conversion
