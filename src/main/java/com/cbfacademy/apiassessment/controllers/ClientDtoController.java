@@ -40,4 +40,9 @@ public class ClientDtoController {
                                     @RequestParam String newClientEmail) {
         return clientDetailsService.updateClientEmail(clientId, newClientEmail);
     }
+
+    @GetMapping("/get/{clientId}")
+    public ClientDto getClientById(@PathVariable Long clientId){
+        return clientDetailsService.getClientById(clientId);
+    }
 }

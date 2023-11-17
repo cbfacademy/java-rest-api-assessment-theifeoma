@@ -30,6 +30,30 @@ public class ClientDetailsService {
         }
     }
 
+    public ClientDto getClientById(Long clientId){
+        try{
+            boolean clientExists = clientDtoRepository.existsByClientId(clientId);
+
+            if (!clientExists) {
+                throw new IllegalStateException("Client with Client ID: " + clientId + " does not exist");
+            }
+
+            List<ClientDto> clients = clientDtoRepository.getAllDto();
+
+            for (ClientDto client : clients) {
+                if (client != null && client.getClientId().equals(clientId)) {
+                    return client;
+                }
+            }
+
+        }
+        catch (IOException e){
+            log.error("Error getting client: {}", e.getMessage());
+            throw new RuntimeException("An error occurred while retrieving client details.");
+        }
+        return null; // Client not found
+    }
+
     public void deleteClientD(Long clientId) {
         try {
             boolean clientExists = clientDtoRepository.existsByClientId(clientId);

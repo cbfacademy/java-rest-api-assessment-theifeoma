@@ -44,7 +44,7 @@ public class ClientInternalContactRepository implements RepositoryInterface{
             csvDataConverter.convertCSVToDtoToClientInternalJson(CLIENT_INTERNAL_CONTACT_CSV_DATA_FILES_LIST, INTERNAL_CONTACT_JSON_REPOSITORY);
         } else {
             // If the JSON file is not empty, log a message and continue using the existing JSON data
-            log.info("Legal Details JSON file is not empty. Skipping CSV to JSON conversion.");
+            log.info("Internal Contact JSON file is not empty. Skipping CSV to JSON conversion.");
         }
     }
 

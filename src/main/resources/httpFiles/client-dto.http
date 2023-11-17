@@ -46,3 +46,6 @@ Content-Type: application/json
 ###
 PUT http://localhost:7070/client-details/update/1?newClientEmail=newestemail@yahoo.com
 Content-Type: application/json
+
+###
+GET http://localhost:7070/client-details/get/555
