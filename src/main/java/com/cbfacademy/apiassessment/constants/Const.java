@@ -17,5 +17,6 @@ public class Const {
     public static final List<String> CLIENT_TRADE_DETAILS_CSV_DATA_FILES_LIST = Arrays.asList("src/main/resources/csvFiles/clientDetails.csv", "src/main/resources/csvFiles/tradeDetails.csv");
 
     public static final List<String> CLIENT_INTERNAL_CONTACT_CSV_DATA_FILES_LIST = Arrays.asList("src/main/resources/csvFiles/clientDetails.csv", "src/main/resources/csvFiles/employeeDetails.csv");
+
     public static final List<String> CLIENT_LEGAL_DETAILS_CSV_DATA_FILES_LIST = Arrays.asList("src/main/resources/csvFiles/clientDetails.csv", "src/main/resources/csvFiles/legalDetails.csv");
 }

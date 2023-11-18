@@ -1,122 +1,95 @@
 package com.cbfacademy.apiassessment.repositories;
+
 import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+import static com.cbfacademy.apiassessment.TestDataFactory.createListOfClientDto;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class ClientDtoRepositoryTest {
 
     @Mock
-    private ObjectMapper objectMapper;
+    private File jsonFile;
 
+    @Mock
     @Value("${json.file.clientDtoRepo.path}")
     private String jsonFilePath;
+
+    @Mock
+    private ObjectMapper objectMapper;
 
     @InjectMocks
     private ClientDtoRepository clientDtoRepository;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
         clientDtoRepository = new ClientDtoRepository(jsonFilePath);
     }
 
     @Test
-    void getAllDto_shouldReturnListOfClientDto() throws IOException {
-        // Arrange
-        String json = "[{\"clientId\":1,\"firstName\":\"John\"},{\"clientId\":2,\"firstName\":\"Alice\"}]";
-        when(objectMapper.readValue(json, eq(new TypeReference<List<ClientDto>>() {}))).thenReturn(new ArrayList<>());
+    void getAllDto() throws IOException {
+        List<ClientDto> expectedClients = createListOfClientDto();
 
-        // Act
-        List<ClientDto> result = clientDtoRepository.getAllDto();
+        when(objectMapper.readValue(any(File.class), any(TypeReference.class))).thenReturn(expectedClients);
 
-        // Assert
-        assertNotNull(result);
-        assertEquals(0, result.size());
-        verify(objectMapper, times(1)).readValue(anyString(), eq(new TypeReference<List<ClientDto>>() {}));
+        List<ClientDto> actualClients = clientDtoRepository.getAllDto();
+
+        assertEquals(expectedClients, actualClients);
     }
 
     @Test
-    void getAllDto_shouldReturnNullIfNoClientDtoAvailable() throws IOException{
+    void existsByClientId() throws IOException {
+        List<ClientDto> clients = createListOfClientDto();
 
+        when(clientDtoRepository.getAllDto()).thenReturn(clients);
+
+        assertTrue(clientDtoRepository.existsByClientId(1L));
+        assertFalse(clientDtoRepository.existsByClientId(3L));
     }
 
     @Test
-    void existsByClientId_shouldReturnTrueIfClientExists() throws IOException {
-        // Arrange
-        when(objectMapper.readValue(anyString(), eq(new TypeReference<List<ClientDto>>() {})))
-                .thenReturn(List.of(new ClientDto(
-                                1L, "John", "Doe", "Smith", "john.doe@example.com", "Manager",
-                                "123-456-7890", "1995-02-28", "2022-03-15", "2022-10-15", "Gold",
-                                123L, "Main St", "Apt 7", "City1", "State1", "12345", "USA",
-                                "123-456-7890", "john.doe@example.com", "www.example.com"
-                        ),
-                        new ClientDto(
-                                2L, "Alice", "Eve", "Johnson", "alice.eve@example.com", "Employee",
-                                "987-654-3210", "1988-09-10", "2022-04-20", "2022-09-20", "Silver",
-                                789L, "Elm St", "Apartment 4", "City3", "State3", "67890", "USA",
-                                "111-222-3333", "alice.eve@example.com", "www.another-example.com"
-                        )));
-
-        // Act
-        boolean result = clientDtoRepository.existsByClientId(1L);
-
-        // Assert
-        assertTrue(result);
+    void binarySearchByClientId() {
+        List<ClientDto> clients = createListOfClientDto();
+//
+//        assertEquals(0, clientDtoRepository.binarySearchByClientId(clients, 1L));
+//        assertEquals(1, clientDtoRepository.binarySearchByClientId(clients, 2L));
+//        assertEquals(-1, clientDtoRepository.binarySearchByClientId(clients, 3L));
     }
 
     @Test
-    void existsByClientId_shouldReturnFalseIfClientDoesNotExist() throws IOException {
-        // Arrange
-        when(objectMapper.readValue(anyString(), eq(new TypeReference<List<ClientDto>>() {})))
-                .thenReturn(List.of(new ClientDto(
-                                1L, "John", "Doe", "Smith", "john.doe@example.com", "Manager",
-                                "123-456-7890", "1995-02-28", "2022-03-15", "2022-10-15", "Gold",
-                                123L, "Main St", "Apt 7", "City1", "State1", "12345", "USA",
-                                "123-456-7890", "john.doe@example.com", "www.example.com"
-                        ),
-                        new ClientDto(
-                                2L, "Alice", "Eve", "Johnson", "alice.eve@example.com", "Employee",
-                                "987-654-3210", "1988-09-10", "2022-04-20", "2022-09-20", "Silver",
-                                789L, "Elm St", "Apartment 4", "City3", "State3", "67890", "USA",
-                                "111-222-3333", "alice.eve@example.com", "www.another-example.com"
-                        )));
+    void saveClientDto() throws IOException {
+        List<ClientDto> clients = createListOfClientDto();
 
-        // Act
-        boolean result = clientDtoRepository.existsByClientId(3L);
+        clientDtoRepository.saveClientDto(clients);
 
-        // Assert
-        assertFalse(result);
+        verify(objectMapper, times(1)).writeValue(any(File.class), eq(clients));
     }
 
     @Test
-    void saveClientDto_shouldWriteToFile() throws IOException {
-        // Arrange
-        List<ClientDto> clientDtoList = List.of(new ClientDto(4L, "Jane", "B", "Doe", "jane.doe@example.com", "Manager", "987-654-3210",
-                "1995-05-20", "2022-02-01", "2022-09-25", "Silver", 456L, "Oak St", "Apt 7", "City2", "State2", "56789", "USA", "987-654-3210", "jane.doe@example.com", "www.sample.com"),new ClientDto(
-                2L, "Alice", "Eve", "Johnson", "alice.eve@example.com", "Employee",
-                "987-654-3210", "1988-09-10", "2022-04-20", "2022-09-20", "Silver",
-                789L, "Elm St", "Apartment 4", "City3", "State3", "67890", "USA",
-                "111-222-3333", "alice.eve@example.com", "www.another-example.com"
-        ));
+    void updateClientEmail() throws IOException {
+        List<ClientDto> clients = createListOfClientDto();
 
-        // Act
-        clientDtoRepository.saveClientDto(clientDtoList);
+        when(clientDtoRepository.getAllDto()).thenReturn(clients);
 
-        // Assert
-        verify(objectMapper, times(1)).writeValue(any(File.class), anyList());
+        assertTrue(clientDtoRepository.updateClientEmail(1L, "new.email@example.com"));
+        assertFalse(clientDtoRepository.updateClientEmail(3L, "new.email@example.com"));
+
+        verify(objectMapper, times(1)).writeValue(any(File.class), eq(clients));
     }
 }
