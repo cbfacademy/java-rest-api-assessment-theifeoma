@@ -1,13 +1,17 @@
 package com.cbfacademy.apiassessment.mappers;
 
-import com.cbfacademy.apiassessment.dto.ClientDto;
-import com.cbfacademy.apiassessment.dto.ClientInternalContact;
-import com.cbfacademy.apiassessment.dto.ClientLegalDetails;
-import com.cbfacademy.apiassessment.dto.ClientTradeDetails;
+import com.cbfacademy.apiassessment.dto.*;
 import com.cbfacademy.apiassessment.entities.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper
 public interface ClientMapper {
@@ -24,9 +28,11 @@ public interface ClientMapper {
     ClientDetails mapClientDetails(ClientDto clientDto);
 
     @Mapping(source = "clientDetails.clientId", target = "clientId")
-    @Mapping(source = "tradeDetails.revenue", target = "revenue")
-    @Mapping(source = "tradeDetails.subAccountNumber", target = "subAccountNumber")
-    ClientTradeDetails mapToClientTradeDetails(ClientDetails clientDetails, TradeDetails tradeDetails);
+    @Mapping(target = "listOfClientTrades", source = "tradeDetails", qualifiedByName = "mapTradeDetailsList")
+    ClientTradeDetails mapToClientTradeDetails(ClientDetails clientDetails, List<TradeDetails> tradeDetails);
+
+    @Mapping(target = "timeOfExecution", source = "timeOfExecution", qualifiedByName = "mapToLocalDate")
+    TradeDetailsDto mapToTradeDetailsDto(TradeDetails tradeDetails);
 
     @Mapping(source = "clientDetails.clientId", target = "clientId")
     ClientLegalDetails mapToClientLegalDetails(ClientDetails clientDetails, LegalDetails legalDetails);
@@ -38,4 +44,24 @@ public interface ClientMapper {
     @Mapping(source = "employeeDetails.email", target = "email")
     @Mapping(source = "employeeDetails.telephoneNumber", target = "telephoneNumber")
     ClientInternalContact mapToClientInternalContact(ClientDetails clientDetails, EmployeeDetails employeeDetails);
+
+    @Named("mapToLocalDate")
+    default LocalDate mapToLocalDate(String timeOfExecution) {
+        try {
+            //conversion logic from String to LocalDate
+            return LocalDate.parse(timeOfExecution, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeParseException e) {
+            //log the error and return a default LocalDate of now
+            System.err.println("Error parsing date: " + e.getMessage());
+            return LocalDate.now(); // or throw a custom exception
+        }
+    }
+
+    @Named("mapTradeDetailsList")
+    default List<TradeDetailsDto> mapTradeDetailsList(List<TradeDetails> tradeDetailsList) {
+        return tradeDetailsList.stream()
+                .map(this::mapToTradeDetailsDto)
+                .collect(Collectors.toList());
+    }
+
 }

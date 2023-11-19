@@ -49,3 +49,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:7070/client-details/get/555
+
+###
+DELETE http://localhost:7070/client-details/delete/555

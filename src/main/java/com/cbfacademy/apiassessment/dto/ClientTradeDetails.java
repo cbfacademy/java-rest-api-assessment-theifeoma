@@ -2,6 +2,8 @@ package com.cbfacademy.apiassessment.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -10,11 +12,5 @@ import lombok.*;
 @Builder
 public class ClientTradeDetails {
     private Long clientId;
-    private Long tradeDetailsId;
-    private String accountNumber;
-    private Long revenue;
-    private String subAccountNumber;
-    private String timeOfExecution;
-    private String product;
-    private String contractingEntity;
+    private List<TradeDetailsDto> listOfClientTrades;
 }

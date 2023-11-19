@@ -8,12 +8,14 @@ import com.cbfacademy.apiassessment.entities.*;
 import com.cbfacademy.apiassessment.mappers.ClientMapper;
 import com.cbfacademy.apiassessment.mappers.ClientMapperImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CSVDataConverter {
 
@@ -68,6 +70,7 @@ public class CSVDataConverter {
 
     public void convertCSVToDtoToClientTradeJson(List<String> csvFiles, String jsonFile) {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         List<ClientTradeDetails> clientTradeDetailsList = new ArrayList<>();
 
         ClientMapper clientMapper = new ClientMapperImpl();
@@ -92,11 +95,29 @@ public class CSVDataConverter {
         }
 
         // Map ClientDetails and TradeDetails to ClientTradeDetails and add to the final list
-        for (int i = 0; i < clientDetailsList.size() && i < tradeDetailsList.size(); i++) {
-            ClientDetails clientDetails = clientDetailsList.get(i);
-            TradeDetails tradeDetails = tradeDetailsList.get(i);
+//        for (int i = 0; i < clientDetailsList.size() && i < tradeDetailsList.size(); i++) {
+//            ClientDetails clientDetails = clientDetailsList.get(i);
+//            TradeDetails tradeDetails = tradeDetailsList.get(i);
+//
+//            clientTradeDetailsList.add(clientMapper.mapToClientTradeDetails(clientDetails, tradeDetails));
+//        }
 
-            clientTradeDetailsList.add(clientMapper.mapToClientTradeDetails(clientDetails, tradeDetails));
+        // Log account numbers for debugging
+        log.info("Client Account Numbers: {}", clientDetailsList.stream().map(ClientDetails::getAccountNumber).collect(Collectors.toList()));
+        log.info("Trade Account Numbers: {}", tradeDetailsList.stream().map(TradeDetails::getAccountNumber).collect(Collectors.toList()));
+
+        for (ClientDetails clientDetails : clientDetailsList) {
+            // Filter the tradeDetailsList to get trades for the current client
+            List<TradeDetails> clientTradeDetails = tradeDetailsList.stream()
+                    .filter(trade -> trade.getAccountNumber().equals(clientDetails.getAccountNumber()))
+                    .collect(Collectors.toList());
+
+            // Log for debugging
+            log.info("Client Account Number: {}", clientDetails.getAccountNumber());
+            log.info("Size of Filtered TradeDetails: {}", clientTradeDetails.size());
+
+            // Map ClientDetails and filtered TradeDetails to ClientTradeDetails and add to the final list
+            clientTradeDetailsList.add(clientMapper.mapToClientTradeDetails(clientDetails, clientTradeDetails));
         }
 
         // Debugging
@@ -223,6 +244,7 @@ public class CSVDataConverter {
                 clientDetails.setBirthDate(data[7]);
                 clientDetails.setRecordCreationDate(data[8]);
                 clientDetails.setLastContactedDate(data[9]);
+                clientDetails.setAccountNumber(data[10]);
                 clientDetailsList.add(clientDetails);
             }
         }
@@ -337,7 +359,7 @@ public class CSVDataConverter {
                 tradeDetails.setRevenue(Long.parseLong(data[2]));
                 tradeDetails.setSubAccountNumber(data[3]);
                 tradeDetails.setTimeOfExecution(data[4]);
-                tradeDetails.setProduct(data[5]);
+                tradeDetails.setProductGrouping(data[5]);
                 tradeDetails.setContractingEntity(data[6]);
 
                 tradeDetailsList.add(tradeDetails);

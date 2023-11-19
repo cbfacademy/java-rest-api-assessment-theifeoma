@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -31,34 +32,85 @@ public class ClientTradeDetailsService {
         }
     }
 
-    public List<ClientTradeDetails> getByProduct(String product) {
+    public List<ClientTradeDetails> getByTimeAndProduct(LocalDate startDate, LocalDate endDate, String productGrouping) {
         try {
-            List<ClientTradeDetails> clients = clientTradeDetailsRepository.getByProduct(product);
-
-            if (clients.isEmpty()) {
-                throw new NoSuchElementException("No clients found with product: " + product);
-            }
-
-            return clients;
+            return clientTradeDetailsRepository.getByTimeAndProduct(startDate, endDate, productGrouping);
         } catch (IOException e) {
-            log.error("Error getting client trade details by product: {}", e.getMessage());
-            throw new RuntimeException("Failed to retrieve client trade details by product. Please try again later.");
+            log.error("Error getting client trade details by time and product grouping: {}", e.getMessage());
+            throw new RuntimeException("Failed to retrieve client trade details. Please try again later.");
         }
     }
 
-    public List<ClientTradeDetails> getByRevenueRange(Long minRevenue, Long maxRevenue) {
+    public List<ClientTradeDetails> getByRevenueAndProduct(Long minRevenue, Long maxRevenue, String productGrouping) {
         try {
-            List<ClientTradeDetails> clients = clientTradeDetailsRepository.getByRevenueRange(minRevenue, maxRevenue);
-
-            if (clients.isEmpty()) {
-                throw new NoSuchElementException("No clients found with revenue range: " + minRevenue + "and" + maxRevenue);
-            }
-
-            return clients;
+            return clientTradeDetailsRepository.getByRevenueAndProduct(minRevenue, maxRevenue, productGrouping);
         } catch (IOException e) {
-            log.error("Error getting client trade details by revenue range: {}", e.getMessage());
-            throw new RuntimeException("Failed to retrieve client trade details by revenue range. Please try again later.");
+            log.error("Error getting client trade details by revenue and product grouping: {}", e.getMessage());
+            throw new RuntimeException("Failed to retrieve client trade details. Please try again later.");
         }
     }
+
+    public List<ClientTradeDetails> getByClientIdAndProduct(Long clientId, String productGrouping) {
+        try {
+            return clientTradeDetailsRepository.getByClientIdAndProduct(clientId, productGrouping);
+        } catch (IOException e) {
+            log.error("Error getting client trade details by client id and product grouping: {}", e.getMessage());
+            throw new RuntimeException("Failed to retrieve client trade details. Please try again later.");
+        }
+    }
+
+    public List<ClientTradeDetails> getByClientIdAndTimeRange(Long clientId, LocalDate startDate, LocalDate endDate) {
+        try {
+            return clientTradeDetailsRepository.getByClientIdAndTimeRange(clientId, startDate, endDate);
+        } catch (IOException e) {
+            log.error("Error getting client trade details by client id and time range: {}", e.getMessage());
+            throw new RuntimeException("Failed to retrieve client trade details. Please try again later.");
+        }
+    }
+
+//    public List<ClientTradeDetails> getByProductGrouping(String productGrouping) {
+//        try {
+//            List<ClientTradeDetails> clients = clientTradeDetailsRepository.getByProductGrouping(productGrouping);
+//
+//            if (clients.isEmpty()) {
+//                throw new NoSuchElementException("No clients found with product grouping: " + productGrouping);
+//            }
+//
+//            return clients;
+//        } catch (IOException e) {
+//            log.error("Error getting client trade details by product grouping: {}", e.getMessage());
+//            throw new RuntimeException("Failed to retrieve client trade details by product grouping. Please try again later.");
+//        }
+//    }
+//
+//    public List<ClientTradeDetails> getByRevenueRange(Long minRevenue, Long maxRevenue) {
+//        try {
+//            List<ClientTradeDetails> clients = clientTradeDetailsRepository.getByRevenueRange(minRevenue, maxRevenue);
+//
+//            if (clients.isEmpty()) {
+//                throw new NoSuchElementException("No clients found with revenue range: " + minRevenue + "and" + maxRevenue);
+//            }
+//
+//            return clients;
+//        } catch (IOException e) {
+//            log.error("Error getting client trade details by revenue range: {}", e.getMessage());
+//            throw new RuntimeException("Failed to retrieve client trade details by revenue range. Please try again later.");
+//        }
+//    }
+//
+//    public List<ClientTradeDetails> getByTimeOfExecutionRange(LocalDate startDate, LocalDate endDate) {
+//        try {
+//            List<ClientTradeDetails> clients = clientTradeDetailsRepository.getByTimeOfExecutionRange(startDate, endDate);
+//
+//            if (clients.isEmpty()) {
+//                throw new NoSuchElementException("No clients found with timeOfExecution range: " + startDate + " and " + endDate);
+//            }
+//
+//            return clients;
+//        } catch (IOException e) {
+//            log.error("Error getting client trade details by timeOfExecution range: {}", e.getMessage());
+//            throw new RuntimeException("Failed to retrieve client trade details by timeOfExecution range. Please try again later.");
+//        }
+//    }
 
 }

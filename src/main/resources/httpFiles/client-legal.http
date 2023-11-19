@@ -7,7 +7,7 @@ GET http://localhost:7070/client-legal-details/all-clients
 GET http://localhost:7070/client-legal-details/all-clients/risk-rating/hih
 
 ###
-GET http://localhost:7070/client-legal-details/all-clients/status/actiive
+GET http://localhost:7070/client-legal-details/all-clients/status/active
 
 ###
-GET http://localhost:7070/client-legal-details/sort/bank
+GET http://localhost:7070/client-legal-details/all-clients/risk-rating/high

@@ -124,14 +124,14 @@ public class TestDataFactory {
         ClientTradeDetails mockInstance = new ClientTradeDetails();
 
         // Set mock values
-        mockInstance.setClientId(1L);
-        mockInstance.setTradeDetailsId(101L);
-        mockInstance.setAccountNumber("ABC123");
-        mockInstance.setRevenue(100000L);
-        mockInstance.setSubAccountNumber("SubABC");
-        mockInstance.setTimeOfExecution("2023-11-15T12:30:00");
-        mockInstance.setProduct("Stock");
-        mockInstance.setContractingEntity("UBS London");
+//        mockInstance.setClientId(1L);
+//        mockInstance.setTradeDetailsId(101L);
+//        mockInstance.setAccountNumber("ABC123");
+//        mockInstance.setRevenue(100000L);
+//        mockInstance.setSubAccountNumber("SubABC");
+//        mockInstance.setTimeOfExecution("2023-11-15T12:30:00");
+//        mockInstance.setProductGrouping("Stock");
+//        mockInstance.setContractingEntity("UBS London");
 
         return mockInstance;
     }

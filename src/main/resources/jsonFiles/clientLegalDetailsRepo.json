@@ -10,7 +10,7 @@
     "clientStatus": "Active",
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA123",
-    "capacity": "Large",
+    "capacity": "Principle",
     "clientLegalClassification": "Bank"
   },
   {
@@ -24,7 +24,7 @@
     "clientStatus": "Active",
     "regulatorName": "Prudential Regulation Authority (PRA)",
     "regulatorId": "PRA456",
-    "capacity": "Medium",
+    "capacity": "Agent",
     "clientLegalClassification": "Investment"
   },
   {
@@ -38,7 +38,7 @@
     "clientStatus": "Inactive",
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA789",
-    "capacity": "Small",
+    "capacity": "Fund",
     "clientLegalClassification": "Bank"
   },
   {
@@ -52,7 +52,7 @@
     "clientStatus": "Inactive",
     "regulatorName": "Prudential Regulation Authority (PRA)",
     "regulatorId": "PRA101",
-    "capacity": "Principle",
+    "capacity": "Agent",
     "clientLegalClassification": "Bank"
   },
   {
@@ -66,7 +66,7 @@
     "clientStatus": "Active",
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA112",
-    "capacity": "Medium",
+    "capacity": "Fund",
     "clientLegalClassification": "Investment"
   },
   {
@@ -94,7 +94,7 @@
     "clientStatus": "Inactive",
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA334",
-    "capacity": "Large",
+    "capacity": "Agent",
     "clientLegalClassification": "Bank"
   },
   {
@@ -122,7 +122,7 @@
     "clientStatus": "Active",
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA556",
-    "capacity": "Medium",
+    "capacity": "Fund",
     "clientLegalClassification": "Bank"
   },
   {
@@ -150,7 +150,7 @@
     "clientStatus": "Inactive",
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA778",
-    "capacity": "Small",
+    "capacity": "Fund",
     "clientLegalClassification": "Bank"
   },
   {
@@ -178,7 +178,7 @@
     "clientStatus": "Active",
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA990",
-    "capacity": "Large",
+    "capacity": "Fund",
     "clientLegalClassification": "Bank"
   },
   {
@@ -206,7 +206,7 @@
     "clientStatus": "Active",
     "regulatorName": "Financial Conduct Authority (FCA)",
     "regulatorId": "FCA1122",
-    "capacity": "Medium",
+    "capacity": "Agent",
     "clientLegalClassification": "Bank"
   }
 ]

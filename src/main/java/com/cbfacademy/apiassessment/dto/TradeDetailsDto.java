@@ -1,6 +1,8 @@
-package com.cbfacademy.apiassessment.entities;
+package com.cbfacademy.apiassessment.dto;
 
 import lombok.*;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -8,12 +10,12 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TradeDetails {
+public class TradeDetailsDto {
     private Long tradeDetailsId;
     private String accountNumber;
     private Long revenue;
     private String subAccountNumber;
-    private String timeOfExecution;
+    private LocalDate timeOfExecution;
     private String productGrouping;
     private String contractingEntity;
 }
