@@ -91,7 +91,12 @@ public class ClientInternalContactService {
                     List<ClientInternalContact> listOfInternalContacts = clientInternalContactRepository.getAll();
 
                     // Remove the old employee from the list
-                    listOfInternalContacts.remove(oldEmployee);
+                    listOfInternalContacts.removeIf(client -> {
+                        if (client != null) {
+                            return client.getEmployeeId().equals(oldEmployeeId);
+                        }
+                        return false;
+                    });
 
                     // Add the modified old employee back to the list
                     listOfInternalContacts.add(oldEmployee);
