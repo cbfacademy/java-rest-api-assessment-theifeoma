@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class ClientInternalContactService {
@@ -58,6 +59,52 @@ public class ClientInternalContactService {
         } catch (IOException e) {
             log.error("Error getting employee by ID: {}", e.getMessage());
             throw new RuntimeException("An error occurred while retrieving employee by ID.");
+        }
+    }
+    public String replaceEmployee(Long oldEmployeeId, Long newEmployeeId) {
+        try {
+            // Check if the old employee exists
+            Optional<ClientInternalContact> oldEmployeeOptional = clientInternalContactRepository.getByEmployeeIdOptional(oldEmployeeId);
+
+            if (oldEmployeeOptional.isPresent()) {
+                // Old employee exists
+                ClientInternalContact oldEmployee = oldEmployeeOptional.get();
+
+                // Check if the new employee exists
+                Optional<ClientInternalContact> newEmployeeOptional = clientInternalContactRepository.getByEmployeeIdOptional(newEmployeeId);
+
+                if (newEmployeeOptional.isPresent()) {
+                    // New employee exists
+                    ClientInternalContact newEmployee = newEmployeeOptional.get();
+
+                    // Replace the information in the old employee with the information from the new employee
+                    oldEmployee.setFirstName(newEmployee.getFirstName());
+                    oldEmployee.setMiddleName(newEmployee.getMiddleName());
+                    oldEmployee.setFamilyName(newEmployee.getFamilyName());
+                    oldEmployee.setEmail(newEmployee.getEmail());
+                    oldEmployee.setRole(newEmployee.getRole());
+                    oldEmployee.setRoleId(newEmployee.getRoleId());
+                    oldEmployee.setTelephoneNumber(newEmployee.getTelephoneNumber());
+
+                    // Get the list of all internal contacts
+                    List<ClientInternalContact> listOfInternalContacts = clientInternalContactRepository.getAll();
+
+                    // Save the updated list back to the repository
+                    clientInternalContactRepository.saveClientInternalContact(listOfInternalContacts);
+
+                    return "Employee replacement successful";
+                } else {
+                    // New employee does not exist
+                    throw new IllegalStateException("New Employee with ID: " + newEmployeeId + " does not exist");
+                }
+            } else {
+                // Old employee does not exist
+                throw new IllegalStateException("Old Employee with ID: " + oldEmployeeId + " does not exist");
+            }
+
+        } catch (IOException e) {
+            log.error("Error replacing employee: {}", e.getMessage());
+            throw new RuntimeException("An error occurred while replacing employee.");
         }
     }
 }

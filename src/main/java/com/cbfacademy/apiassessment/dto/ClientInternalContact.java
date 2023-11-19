@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class ClientInternalContact {
-
     private Long clientId;
     private Long employeeId;
     private String firstName;

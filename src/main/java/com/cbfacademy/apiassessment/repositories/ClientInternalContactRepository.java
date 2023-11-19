@@ -1,5 +1,6 @@
 package com.cbfacademy.apiassessment.repositories;
 
+import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.cbfacademy.apiassessment.dto.ClientInternalContact;
 import com.cbfacademy.apiassessment.helpers.CSVDataConverter;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -11,10 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.cbfacademy.apiassessment.constants.Const.*;
@@ -67,7 +65,6 @@ public class ClientInternalContactRepository implements RepositoryInterface{
                 .collect(Collectors.toList());
     }
 
-    //get by employeeId
     public boolean existsByEmployeeId(Long employeeId) throws IOException {
         List<ClientInternalContact> employees = getAll();
 
@@ -77,7 +74,7 @@ public class ClientInternalContactRepository implements RepositoryInterface{
         // Perform binary search
         int index = binarySearchByEmployeeId(employees, employeeId);
 
-        // Check if the clientId was found
+        // Check if the employee was found
         return index >= 0;
     }
 
@@ -88,7 +85,7 @@ public class ClientInternalContactRepository implements RepositoryInterface{
         while (start <= end) {
             int mid = (start + end) / 2;
             //gets the employee id in the mid-index of list
-            Long midVal = employees.get(mid).getClientId();
+            Long midVal = employees.get(mid).getEmployeeId();
             //compares the mid-val with the employeeId we are looking for
             int cmp = midVal.compareTo(employeeId);
 
@@ -112,4 +109,23 @@ public class ClientInternalContactRepository implements RepositoryInterface{
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("No employee found with Employee ID: " + employeeId));
     }
+
+    public Optional<ClientInternalContact> getByEmployeeIdOptional(Long employeeId) throws IOException {
+        List<ClientInternalContact> employees = getAll();
+
+        // Filter the list based on the employeeId
+        return employees.stream()
+                .filter(client -> client != null && client.getEmployeeId().equals(employeeId))
+                .findFirst();
+    }
+
+    public void saveClientInternalContact(List<ClientInternalContact> data) throws IOException{
+        try {
+            objectMapper.writeValue(jsonFile, data);
+        } catch (IOException e) {
+            log.error("Error saving clientDto data to JSON file: {}", e.getMessage());
+            throw new RuntimeException("An error occurred while saving clientDto data.", e);
+        }
+    }
+
 }

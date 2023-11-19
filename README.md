@@ -1,3 +1,101 @@
+# Client Report API README
+
+## Overview
+
+This Spring Boot project serves as a backend system for managing client reports which inlcude client details, trade information, regulatory details, and internal contacts. The project includes multiple controllers, services, and a repository for data storage and retrieval. The application exposes various RESTful endpoints for performing CRUD operations and retrieving specific data based on different parameters.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Steps](#key-steps)
+- [Project Structure](#project-structure)
+- [Dependencies](#dependencies)
+- [API Endpoints](#api-endpoints)
+- [Data Conversion](#data-conversion)
+- [Swagger Documentation](#swagger-documentation)
+- [Exception Handling](#exception-handling)
+
+
+## Project Structure
+
+The project is organized into several packages, each serving a specific purpose:
+
+- **controllers**: Contains classes responsible for handling incoming HTTP requests, processing them, and returning appropriate responses.
+
+- **services**: Houses service classes that implement business logic and interact with repositories to fetch or manipulate data.
+
+- **repositories**: Includes repository classes responsible for data access and storage. Uses JSON files as a data source.
+
+- **mappers**: Houses mapping class for entities to dto.
+
+- **entities**: Contains classes representing entities used in the database.
+
+- **dto**: Contains classes used for data transfer to the UI.
+
+- **helpers**: Contains utility classes for tasks such as CSV to DTO to JSON conversion. 
+
+- **constants**: Contains a class to initialize constants used through-out the main java program
+
+## Key Steps
+
+### CSV File Ingestion:
+The application begins by reading CSV files containing diverse client information.
+Utilizes a CSV reader to parse and structure the raw data. The project includes a CSVDataConverter class responsible for converting CSV data to DTOs and then to JSON. This is utilized during the initialization of the JSON repository.
+### Entity Representation:
+Defines distinct entities such as ClientDetails, TradeDetails, and LegalDetails to accurately model the internal data structure.
+### Entity to DTO Mapping:
+Implements a mapping layer, leveraging a framework like MapStruct, to convert entities into DTOs.
+Enables a clean separation between internal data representation and API exposure.
+### JSON Serialization:
+Employs Jackson, integrated with Spring, for seamless serialization of DTOs into JSON format.
+Ensures compatibility and ease of communication with other systems.
+### Repository Operations:
+Defines repository methods for CRUD operations and data retrieval. At the core of the repository is the json files and algorithms such as binary search are implemented to search for client details.
+### Service Layer:
+Establishes a service layer to encapsulate business logic.
+Orchestrates interactions with the repository, implementing additional validation and processing steps.
+### API Controller:
+Implements RESTful API endpoints using Spring controllers. API endpoints are tailored for querying and aggregating client data.
+Incorporates parameters for flexible data retrieval, sorting, and aggregation.
+Utilizes annotations like @RestController and @RequestMapping for streamlined HTTP request handling.
+### Swagger Documentation:
+Incorporates Swagger for API documentation, providing insights into available endpoints and their functionalities.
+Enhances ease of use and integration for other development teams. Swagger is integrated into the project to provide interactive API documentation. Visit http://localhost:7070/swagger-ui/index.html to explore and test the available APIs.
+### Integration for Other Teams:
+The API becomes a pivotal integration point for teams like Management Information.
+Offers comprehensive documentation for seamless integration, ensuring secure and controlled access to client-related information.
+### Outcome:
+The Client Information Management System not only centralizes client data but also provides an extensible and well-documented API, catering to the diverse needs of other teams for querying and aggregating critical client information.
+
+## Dependencies
+
+The project uses the following key dependencies:
+
+- **Spring Boot**: Facilitates the development of a standalone, production-grade Spring-based application.
+
+- **Springfox Swagger**: Enables the generation of API documentation using Swagger.
+
+- **Jackson ObjectMapper**: Handles JSON serialization and deserialization.
+
+
+### API Endpoints
+
+The project exposes the following API endpoints:
+
+#### Client Details: /client-details
+#### Client Internal Contacts: /client-internal-contact
+#### Client Legal Details: /client-legal-details
+#### Client Trade Details: /client-trade-details
+Refer to the Swagger documentation for detailed information on each endpoint, request parameters, and response formats.
+
+### Exception Handling
+
+Exception handling is implemented in controllers to provide meaningful error responses in case of issues. Exceptions are logged for debugging purposes.
+
+---
+---
+---
+
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/iDPpP-d0)
 # **Java API Assessment**
 
@@ -176,7 +274,7 @@ You should see console output similar to the following (press `Ctrl + C` to exit
 2023-10-03T17:17:34.911+01:00  INFO 35536 --- [  restartedMain] com.cbfacademy.apiassessment.App         : Started App in 0.643 seconds (process running for 0.786)
 ```
 
-Open your browser and navigate to `http://localhost:8080`.
+Open your browser and navigate to `http://localhost:7070`.
 
 ## **Deliverables**
 

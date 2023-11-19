@@ -66,7 +66,6 @@ class ClientDtoControllerTest {
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
-        //TODO changed to string because of classes retrieved are different
         assertEquals(createClientDto().toString(), responseEntity.getBody().toString());
 
         verify(clientDetailsService, times(1)).getClientById(clientIdToRetrieve);

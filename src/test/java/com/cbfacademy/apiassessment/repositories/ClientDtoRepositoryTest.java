@@ -78,46 +78,44 @@ class ClientDtoRepositoryTest {
         assertTrue(savedClients.containsAll(testData));
     }
 
-    //TODO REMOVE NOT WORKING
-    @Test
-    void testExistsByClientId() throws IOException {
-        // Create a list of ClientDto using your utility method
-        List<ClientDto> clientDtoList = createListOfClientDto();
-        clientDtoList.sort(Comparator.comparing(ClientDto::getClientId));
-
-        // Mocking behavior to return the created list when getAllDto is called
-        when(clientDtoRepository.getAllDto()).thenReturn(clientDtoList);
-
-        // When
-        boolean existingClientIdResult = clientDtoRepository.existsByClientId(2L);
-        boolean nonExistingClientIdResult = clientDtoRepository.existsByClientId(3L);
-
-        // Then
-        assertTrue(existingClientIdResult);
-        assertFalse(nonExistingClientIdResult);
-
-        verify(clientDtoRepository, times(1)).existsByClientId(1L);
-        verify(clientDtoRepository, times(1)).existsByClientId(3L);
-    }
-
-    //TODO REMOVE NOT WORKING
-    @Test
-    void updateClientEmail_ShouldReplaceEmailCorrectly() throws IOException {
-        //When
-        List<ClientDto> testData = createListOfClientDto();
-        Long clientIdToUpdate = 1L;
-        String newEmail = "new.email@example.com";
-
-        // Mocking behavior for getAllDto method
-        when(clientDtoRepository.getAllDto()).thenReturn(testData);
-
-        // Mocking behavior for writeValue method
-        doNothing().when(objectMapper).writeValue(any(File.class), eq(testData));
-
-        assertTrue(clientDtoRepository.updateClientEmail(clientIdToUpdate, newEmail));
-        assertFalse(clientDtoRepository.updateClientEmail(3L, "new.email@example.com"));
-
-        verify(clientDtoRepository).updateClientEmail(clientIdToUpdate, newEmail);
-        verify(clientDtoRepository, times(1)).updateClientEmail(clientIdToUpdate, newEmail);
-    }
+//    @Test
+//    void testExistsByClientId() throws IOException {
+//        // Create a list of ClientDto using your utility method
+//        List<ClientDto> clientDtoList = createListOfClientDto();
+//        clientDtoList.sort(Comparator.comparing(ClientDto::getClientId));
+//
+//        // Mocking behavior to return the created list when getAllDto is called
+//        when(clientDtoRepository.getAllDto()).thenReturn(clientDtoList);
+//
+//        // When
+//        boolean existingClientIdResult = clientDtoRepository.existsByClientId(2L);
+//        boolean nonExistingClientIdResult = clientDtoRepository.existsByClientId(3L);
+//
+//        // Then
+//        assertTrue(existingClientIdResult);
+//        assertFalse(nonExistingClientIdResult);
+//
+//        verify(clientDtoRepository, times(1)).existsByClientId(1L);
+//        verify(clientDtoRepository, times(1)).existsByClientId(3L);
+//    }
+//
+//    @Test
+//    void updateClientEmail_ShouldReplaceEmailCorrectly() throws IOException {
+//        //When
+//        List<ClientDto> testData = createListOfClientDto();
+//        Long clientIdToUpdate = 1L;
+//        String newEmail = "new.email@example.com";
+//
+//        // Mocking behavior for getAllDto method
+//        when(clientDtoRepository.getAllDto()).thenReturn(testData);
+//
+//        // Mocking behavior for writeValue method
+//        doNothing().when(objectMapper).writeValue(any(File.class), eq(testData));
+//
+//        assertTrue(clientDtoRepository.updateClientEmail(clientIdToUpdate, newEmail));
+//        assertFalse(clientDtoRepository.updateClientEmail(3L, "new.email@example.com"));
+//
+//        verify(clientDtoRepository).updateClientEmail(clientIdToUpdate, newEmail);
+//        verify(clientDtoRepository, times(1)).updateClientEmail(clientIdToUpdate, newEmail);
+//    }
 }

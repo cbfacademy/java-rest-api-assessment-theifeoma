@@ -3,3 +3,6 @@ GET http://localhost:7070/client-internal-contact/all-clients
 
 ###
 GET http://localhost:7070/client-internal-contact/all-role/Operations Manager
+
+###
+PUT http://localhost:7070/client-internal-contact/replace-employee?oldEmployeeId=312&newEmployeeId=313
