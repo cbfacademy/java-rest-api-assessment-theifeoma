@@ -78,6 +78,7 @@ public class ClientInternalContactService {
                     ClientInternalContact newEmployee = newEmployeeOptional.get();
 
                     // Replace the information in the old employee with the information from the new employee
+                    oldEmployee.setEmployeeId(newEmployee.getEmployeeId());
                     oldEmployee.setFirstName(newEmployee.getFirstName());
                     oldEmployee.setMiddleName(newEmployee.getMiddleName());
                     oldEmployee.setFamilyName(newEmployee.getFamilyName());
@@ -88,6 +89,12 @@ public class ClientInternalContactService {
 
                     // Get the list of all internal contacts
                     List<ClientInternalContact> listOfInternalContacts = clientInternalContactRepository.getAll();
+
+                    // Remove the old employee from the list
+                    listOfInternalContacts.remove(oldEmployee);
+
+                    // Add the modified old employee back to the list
+                    listOfInternalContacts.add(oldEmployee);
 
                     // Save the updated list back to the repository
                     clientInternalContactRepository.saveClientInternalContact(listOfInternalContacts);
