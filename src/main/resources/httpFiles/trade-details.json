@@ -1,0 +1,12 @@
+{
+  "tradeDetailsId": 5,
+  "clientId": 5,
+  "firstName": "Samuel",
+  "middleName": "Dave",
+  "familyName": "Fayre",
+  "telephoneNumber": "111-222-3333",
+  "email": "michael.johnson@example.com",
+  "accountNumber": "ACCT789",
+  "product": "Options",
+  "contractingEntity": "Entity3"
+}

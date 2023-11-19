@@ -1,0 +1,22 @@
+{
+  "clientId": 4,
+  "firstName": "Ronald",
+  "middleName": "",
+  "familyName": "Shark",
+  "email": "new.client@example.com",
+  "role": "Employee",
+  "telephoneNumber": "555-555-5555",
+  "birthDate": "1995-03-20",
+  "recordCreationDate": "2023-01-15",
+  "lastContactedDate": "2023-10-01",
+  "addressHouseNumber": 456,
+  "addressLineOne": "Oak St",
+  "addressLineTwo": "Apt 2",
+  "city": "CityXYZ",
+  "state": "StateXYZ",
+  "postcode": "54321",
+  "country": "USA",
+  "addressTelephone": "555-555-5555",
+  "addressEmail": "new.client@example.com",
+  "addressUrl": "www.new-example.com"
+}
