@@ -3,6 +3,8 @@ package com.cbfacademy.apiassessment.controllers;
 import com.cbfacademy.apiassessment.dto.ClientInternalContact;
 import com.cbfacademy.apiassessment.services.ClientInternalContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +23,24 @@ public class ClientInternalContactController {
     }
 
     @GetMapping("/all-clients")
-    public List<ClientInternalContact> getAllClients(){
-        return clientInternalContactService.getAllClientInternalContact();
+    public ResponseEntity<List<ClientInternalContact>> getAllClients() {
+        try {
+            List<ClientInternalContact> clients = clientInternalContactService.getAllClientInternalContact();
+            return ResponseEntity.ok(clients);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @GetMapping("/all-role/{role}")
-    public List<ClientInternalContact> findEmployeeByRole(@PathVariable String role){
-        return clientInternalContactService.findEmployeeByRole(role);
+    public ResponseEntity<List<ClientInternalContact>> findEmployeeByRole(@PathVariable String role) {
+        try {
+            List<ClientInternalContact> clients = clientInternalContactService.findEmployeeByRole(role);
+            return ResponseEntity.ok(clients);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

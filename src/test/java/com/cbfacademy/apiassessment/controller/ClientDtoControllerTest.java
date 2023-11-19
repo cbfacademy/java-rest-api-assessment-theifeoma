@@ -3,109 +3,131 @@ package com.cbfacademy.apiassessment.controller;
 import com.cbfacademy.apiassessment.controllers.ClientDtoController;
 import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.cbfacademy.apiassessment.services.ClientDetailsService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import java.util.Arrays;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import java.util.List;
+
+import static com.cbfacademy.apiassessment.TestDataFactory.createClientDto;
+import static com.cbfacademy.apiassessment.TestDataFactory.createListOfClientDto;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
+@SpringBootTest
 class ClientDtoControllerTest {
 
-    @Mock
+    @MockBean
     private ClientDetailsService clientDetailsService;
 
-    @InjectMocks
+
     private ClientDtoController clientDtoController;
 
-    private final MockMvc mockMvc;
-
-    public ClientDtoControllerTest() {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(clientDtoController).build();
+    @BeforeEach
+    void setUp() {
+        clientDtoController = new ClientDtoController(clientDetailsService);
     }
 
     @Test
-    void getAllClients() throws Exception {
-        when(clientDetailsService.getAllDto()).thenReturn(Arrays.asList(new ClientDto(), new ClientDto()));
+    void getAllClients_ShouldReturnListOfClients() {
+        //When
+        // Mocking behavior to return a list of ClientDto when getAllDto is called
+        List<ClientDto> clients = createListOfClientDto();
+        when(clientDetailsService.getAllDto()).thenReturn(clients);
 
-        mockMvc.perform(get("/client-details/all-clients"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.length()").value(2));
+        //Then
+        ResponseEntity<List<ClientDto>> responseEntity = clientDtoController.getAllClients();
 
+        // Verify the response status and content
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+
+        assertEquals(clients, responseEntity.getBody());
+        verify(clientDetailsService).getAllDto();
         verify(clientDetailsService, times(1)).getAllDto();
-        verifyNoMoreInteractions(clientDetailsService);
     }
 
     @Test
-    void addNewClient() throws Exception {
-        ClientDto clientDto = new ClientDto();
+    void getClientById_ShouldReturnClientDetails() {
+        //When
+        Long clientIdToRetrieve = 3L;
+        ClientDto client = createClientDto();
 
-        mockMvc.perform(post("/client-details/add")
-                        .content(asJsonString(clientDto))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+        // Mocking behavior to return a ClientDto when getClientById is called
+        when(clientDetailsService.getClientById(clientIdToRetrieve)).thenReturn(client);
 
-        verify(clientDetailsService, times(1)).addNewClient(clientDto);
-        verifyNoMoreInteractions(clientDetailsService);
+        //Then
+        ResponseEntity<ClientDto> responseEntity = clientDtoController.getClientById(clientIdToRetrieve);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertNotNull(responseEntity.getBody());
+        //TODO changed to string because of classes retrieved are different
+        assertEquals(createClientDto().toString(), responseEntity.getBody().toString());
+
+        verify(clientDetailsService, times(1)).getClientById(clientIdToRetrieve);
+    }
+
+
+    @Test
+    void getAllClients_ShouldThrowError_WhenServiceLayerHasRuntimeExceptionError() {
+        //When
+        // Mocking behavior to simulate an exception in getAllClients
+        when(clientDetailsService.getAllDto()).thenThrow(new RuntimeException("Simulated error"));
+
+        //Then
+        ResponseEntity<List<ClientDto>> responseEntity = clientDtoController.getAllClients();
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
+        // Assert that the returned list is null
+        assertNull(responseEntity.getBody());
+        verify(clientDetailsService).getAllDto();
+    }
+
+    //works
+    @Test
+    void addNewClient_ShouldAddNewClient_WhenClientDoesNotExist() {
+        //When
+        ClientDto newClient = createClientDto();
+
+        //Then
+        ResponseEntity<Void> responseEntity = clientDtoController.addNewClient(newClient);
+
+        // Assert that the response status is CREATED
+        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+        verify(clientDetailsService).addNewClient(newClient);
+    }
+
+    //works
+    @Test
+    void deleteClient_ShouldRemoveClientSuccessfully() {
+        //When
+        Long clientIdToDelete = 1L;
+
+        //Then
+        ResponseEntity<Void> responseEntity = clientDtoController.deleteClient(clientIdToDelete);
+
+        // Assert that the response status is NO_CONTENT
+        assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
+        verify(clientDetailsService).deleteClientD(clientIdToDelete);
     }
 
     @Test
-    void deleteClient() throws Exception {
-        long clientId = 1L;
+    void updateClientEmail_ShouldReplaceExistingEmail() {
+        //When
+        Long clientIdToUpdate = 1L;
+        String newEmail = "new.email@example.com";
 
-        mockMvc.perform(delete("/client-details/delete/{clientId}", clientId))
-                .andExpect(status().isOk());
+        //Then
+        ResponseEntity<String> responseEntity = clientDtoController.updateClientEmail(clientIdToUpdate, newEmail);
 
-        verify(clientDetailsService, times(1)).deleteClientD(clientId);
-        verifyNoMoreInteractions(clientDetailsService);
-    }
-
-    @Test
-    void updateClientEmail() throws Exception {
-        long clientId = 1L;
-        String newClientEmail = "new@example.com";
-
-        when(clientDetailsService.updateClientEmail(clientId, newClientEmail)).thenReturn("Email updated successfully");
-
-        mockMvc.perform(put("/client-details/update/{clientId}", clientId)
-                        .param("newClientEmail", newClientEmail))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Email updated successfully"));
-
-        verify(clientDetailsService, times(1)).updateClientEmail(clientId, newClientEmail);
-        verifyNoMoreInteractions(clientDetailsService);
-    }
-
-    @Test
-    void getClientById() throws Exception {
-        long clientId = 1L;
-        ClientDto clientDto = new ClientDto();
-
-        when(clientDetailsService.getClientById(clientId)).thenReturn(clientDto);
-
-        mockMvc.perform(get("/client-details/get/{clientId}", clientId))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.clientId").exists());
-
-        verify(clientDetailsService, times(1)).getClientById(clientId);
-        verifyNoMoreInteractions(clientDetailsService);
-    }
-
-    private static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        // Assert that the response status is OK
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        // Ensure that the clientDetailsService.updateClientEmail method was called
+        verify(clientDetailsService).updateClientEmail(clientIdToUpdate, newEmail);
     }
 }

@@ -57,7 +57,6 @@ public class ClientTradeDetailsRepository implements RepositoryInterface{
     }
 
     // get by timeOfExecution range and productGrouping
-    // get by timeOfExecution range and productGrouping
     public List<ClientTradeDetails> getByTimeAndProduct(LocalDate startDate, LocalDate endDate, String productGrouping) throws IOException {
         List<ClientTradeDetails> clientTradeDetailsList = getAll();
 
@@ -118,34 +117,4 @@ public class ClientTradeDetailsRepository implements RepositoryInterface{
                 .filter(details -> !details.getListOfClientTrades().isEmpty())
                 .collect(Collectors.toList());
     }
-
-    //get by product
-//    public List<ClientTradeDetails> getByProductGrouping(String productGrouping) throws IOException {
-//        List<ClientTradeDetails> clientTradeDetailsList = getAll();
-//
-//        // Filter by product grouping criteria
-//        return clientTradeDetailsList.stream()
-//                .filter(details -> details.getProductGrouping().equalsIgnoreCase(productGrouping))
-//                .collect(Collectors.toList());
-//    }
-//
-//    //get by revenue min and max
-//    public List<ClientTradeDetails> getByRevenueRange(Long minRevenue, Long maxRevenue) throws IOException {
-//        List<ClientTradeDetails> clientTradeDetailsList = getAll();
-//
-//        // Filter by revenue range criteria
-//        return clientTradeDetailsList.stream()
-//                .filter(details -> details.getRevenue() >= minRevenue && details.getRevenue() <= maxRevenue)
-//                .collect(Collectors.toList());
-//    }
-//
-//    // get by timeOfExecution range
-//    public List<ClientTradeDetails> getByTimeOfExecutionRange(LocalDate startDate, LocalDate endDate) throws IOException {
-//        List<ClientTradeDetails> clientTradeDetailsList = getAll();
-//
-//        // Filter by timeOfExecution range criteria
-//        return clientTradeDetailsList.stream()
-//                .filter(details -> details.getTimeOfExecution().isAfter(startDate) && details.getTimeOfExecution().isBefore(endDate))
-//                .collect(Collectors.toList());
-//    }
 }

@@ -3,7 +3,6 @@ package com.cbfacademy.apiassessment;
 import com.cbfacademy.apiassessment.dto.ClientDto;
 import com.cbfacademy.apiassessment.dto.ClientInternalContact;
 import com.cbfacademy.apiassessment.dto.ClientLegalDetails;
-import com.cbfacademy.apiassessment.dto.ClientTradeDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,21 +119,6 @@ public class TestDataFactory {
         return mockInstance;
     }
 
-    public static ClientTradeDetails createClientTradeDetails(){
-        ClientTradeDetails mockInstance = new ClientTradeDetails();
-
-        // Set mock values
-//        mockInstance.setClientId(1L);
-//        mockInstance.setTradeDetailsId(101L);
-//        mockInstance.setAccountNumber("ABC123");
-//        mockInstance.setRevenue(100000L);
-//        mockInstance.setSubAccountNumber("SubABC");
-//        mockInstance.setTimeOfExecution("2023-11-15T12:30:00");
-//        mockInstance.setProductGrouping("Stock");
-//        mockInstance.setContractingEntity("UBS London");
-
-        return mockInstance;
-    }
 
     private static void setMockValues(ClientDto clientDto, Long clientId, String firstName, String middleName,
                                       String familyName, String email, String role, String telephoneNumber, String birthDate,

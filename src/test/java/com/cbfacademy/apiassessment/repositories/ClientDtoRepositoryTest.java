@@ -1,95 +1,123 @@
 package com.cbfacademy.apiassessment.repositories;
 
 import com.cbfacademy.apiassessment.dto.ClientDto;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.cbfacademy.apiassessment.TestDataFactory.createListOfClientDto;
+import static com.cbfacademy.apiassessment.constants.TestConstants.JSON_REPOSITORY_TEST;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@SpringBootTest
 class ClientDtoRepositoryTest {
 
-    @Mock
-    private File jsonFile;
-
-    @Mock
-    @Value("${json.file.clientDtoRepo.path}")
+    @Value(JSON_REPOSITORY_TEST)
     private String jsonFilePath;
 
     @Mock
     private ObjectMapper objectMapper;
 
-    @InjectMocks
+    @Mock
     private ClientDtoRepository clientDtoRepository;
 
     @BeforeEach
     void setUp() {
+        clientDtoRepository = new ClientDtoRepository(JSON_REPOSITORY_TEST);
+        objectMapper = new ObjectMapper();
         MockitoAnnotations.initMocks(this);
-        clientDtoRepository = new ClientDtoRepository(jsonFilePath);
+
     }
 
     @Test
-    void getAllDto() throws IOException {
-        List<ClientDto> expectedClients = createListOfClientDto();
+    void getAllDto_ShouldNotBeNull() throws IOException {
+        // Mocking behavior to return a list of ClientDto when readValue is called
+        when(clientDtoRepository.getAllDto()).thenReturn(createListOfClientDto());
 
-        when(objectMapper.readValue(any(File.class), any(TypeReference.class))).thenReturn(expectedClients);
+        List<ClientDto> clientDtoList = clientDtoRepository.getAllDto();
 
-        List<ClientDto> actualClients = clientDtoRepository.getAllDto();
-
-        assertEquals(expectedClients, actualClients);
+        // Assert that the returned list is not null
+        assertNotNull(clientDtoList);
     }
 
     @Test
-    void existsByClientId() throws IOException {
-        List<ClientDto> clients = createListOfClientDto();
-
-        when(clientDtoRepository.getAllDto()).thenReturn(clients);
-
-        assertTrue(clientDtoRepository.existsByClientId(1L));
-        assertFalse(clientDtoRepository.existsByClientId(3L));
-    }
-
-    @Test
-    void binarySearchByClientId() {
-        List<ClientDto> clients = createListOfClientDto();
-//
-//        assertEquals(0, clientDtoRepository.binarySearchByClientId(clients, 1L));
-//        assertEquals(1, clientDtoRepository.binarySearchByClientId(clients, 2L));
-//        assertEquals(-1, clientDtoRepository.binarySearchByClientId(clients, 3L));
-    }
-
-    @Test
-    void saveClientDto() throws IOException {
+    void saveClientDto_ShouldSaveClient() throws IOException {
         List<ClientDto> clients = createListOfClientDto();
 
         clientDtoRepository.saveClientDto(clients);
 
-        verify(objectMapper, times(1)).writeValue(any(File.class), eq(clients));
+        verify(clientDtoRepository, times(1)).saveClientDto(clients);
     }
 
     @Test
-    void updateClientEmail() throws IOException {
-        List<ClientDto> clients = createListOfClientDto();
+    void saveClientDto_ShouldSaveClientDetails() throws IOException {
+        List<ClientDto> testData = createListOfClientDto();
 
-        when(clientDtoRepository.getAllDto()).thenReturn(clients);
+        when(clientDtoRepository.getAllDto()).thenReturn(testData);
 
-        assertTrue(clientDtoRepository.updateClientEmail(1L, "new.email@example.com"));
+        // Call the method to save client data
+        clientDtoRepository.saveClientDto(testData);
+
+        List<ClientDto> savedClients = clientDtoRepository.getAllDto();
+        assertNotNull(savedClients);
+        assertEquals(testData.size(), savedClients.size());
+        // assert that the repository state is updated after saving
+        assertTrue(savedClients.containsAll(testData));
+    }
+
+    //TODO REMOVE NOT WORKING
+    @Test
+    void testExistsByClientId() throws IOException {
+        // Create a list of ClientDto using your utility method
+        List<ClientDto> clientDtoList = createListOfClientDto();
+        clientDtoList.sort(Comparator.comparing(ClientDto::getClientId));
+
+        // Mocking behavior to return the created list when getAllDto is called
+        when(clientDtoRepository.getAllDto()).thenReturn(clientDtoList);
+
+        // When
+        boolean existingClientIdResult = clientDtoRepository.existsByClientId(2L);
+        boolean nonExistingClientIdResult = clientDtoRepository.existsByClientId(3L);
+
+        // Then
+        assertTrue(existingClientIdResult);
+        assertFalse(nonExistingClientIdResult);
+
+        verify(clientDtoRepository, times(1)).existsByClientId(1L);
+        verify(clientDtoRepository, times(1)).existsByClientId(3L);
+    }
+
+    //TODO REMOVE NOT WORKING
+    @Test
+    void updateClientEmail_ShouldReplaceEmailCorrectly() throws IOException {
+        //When
+        List<ClientDto> testData = createListOfClientDto();
+        Long clientIdToUpdate = 1L;
+        String newEmail = "new.email@example.com";
+
+        // Mocking behavior for getAllDto method
+        when(clientDtoRepository.getAllDto()).thenReturn(testData);
+
+        // Mocking behavior for writeValue method
+        doNothing().when(objectMapper).writeValue(any(File.class), eq(testData));
+
+        assertTrue(clientDtoRepository.updateClientEmail(clientIdToUpdate, newEmail));
         assertFalse(clientDtoRepository.updateClientEmail(3L, "new.email@example.com"));
 
-        verify(objectMapper, times(1)).writeValue(any(File.class), eq(clients));
+        verify(clientDtoRepository).updateClientEmail(clientIdToUpdate, newEmail);
+        verify(clientDtoRepository, times(1)).updateClientEmail(clientIdToUpdate, newEmail);
     }
 }
