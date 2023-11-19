@@ -1,0 +1,54 @@
+###
+GET http://localhost:7070/client-details/all-clients
+
+###
+GET http://localhost:7070/client-details/all-clients
+
+<> 2023-11-10T184237.500.json
+<> 2023-11-10T183114.500.json
+
+###
+GET http://localhost:7070/clientdetails/allclients
+
+<> 2023-11-10T203725.404.json
+<> 2023-11-10T184116.500.json
+<> 2023-11-10T183128.500.json
+
+###
+GET http://localhost:7070/client-details/all-clients
+
+<> 2023-11-10T184515.500.json
+<> 2023-11-10T184312.500.json
+
+###
+GET http://localhost:7070/client-details/all-clients
+
+###
+DELETE http://localhost:7070/client-details/delete/3
+
+<> 2023-11-10T202719.500.json
+
+###
+GET http://localhost:7070/client-details/all-clients
+
+<> 2023-11-10T212348.200.json
+<> 2023-11-10T212336.200.json
+<> 2023-11-10T212327.200.json
+<> 2023-11-10T204044.200.json
+
+###
+POST http://localhost:7070/client-details/add
+Content-Type: application/json
+
+< client-dto.json
+<> 2023-11-10T212352.500.json
+
+###
+PUT http://localhost:7070/client-details/update/1?newClientEmail=newestemail@yahoo.com
+Content-Type: application/json
+
+###
+GET http://localhost:7070/client-details/get/555
+
+###
+DELETE http://localhost:7070/client-details/delete/555

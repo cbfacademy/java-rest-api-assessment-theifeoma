@@ -1,0 +1,16 @@
+legalDetailsId,lei,clientLegalName,clientName,riskRating,nextReviewDate,clientStatus,regulatorName,regulatorId,capacity,clientLegalClassification
+101,LEI1234567890123456,ABC Corporation Ltd.,ABC Corp.,High,2023-12-01,Active,Financial Conduct Authority (FCA),FCA123,Principle,Bank
+102,LEI2345678901234567,XYZ Holdings Ltd.,XYZ Holdings,Medium,2023-11-15,Active,Prudential Regulation Authority (PRA),PRA456,Agent,Investment
+103,LEI3456789012345678,LMN Investments Ltd.,LMN Investments,Low,2023-10-20,Inactive,Financial Conduct Authority (FCA),FCA789,Fund,Bank
+104,LEI4567890123456789,Global Ventures Ltd.,Global Ventures,High,2023-09-25,Inactive,Prudential Regulation Authority (PRA),PRA101,Agent,Bank
+105,LEI5678901234567890,United Innovations Ltd.,United Innovations,Medium,2023-08-30,Active,Financial Conduct Authority (FCA),FCA112,Fund,Investment
+106,LEI6789012345678901,Infinite Solutions Ltd.,Infinite Solutions,Low,2023-07-05,Active,Prudential Regulation Authority (PRA),PRA223,Principle,Bank
+107,LEI7890123456789012,Dynamic Holdings Ltd.,Dynamic Holdings,High,2023-06-10,Inactive,Financial Conduct Authority (FCA),FCA334,Agent,Bank
+108,LEI8901234567890123,Secure Investments Ltd.,Secure Investments,Medium,2023-05-15,Inactive,Prudential Regulation Authority (PRA),PRA445,Principle,Investment
+109,LEI9012345678901234,Innovate Tech Group Ltd.,Innovate Tech Group,Low,2023-04-20,Active,Financial Conduct Authority (FCA),FCA556,Fund,Bank
+110,LEI0123456789012345,Strategic Holdings Ltd.,Strategic Holdings,High,2023-03-25,Active,Prudential Regulation Authority (PRA),PRA667,Principle,Investment
+111,LEI1234567890123456,Quantum Ventures Ltd.,Quantum Ventures,Medium,2023-02-28,Inactive,Financial Conduct Authority (FCA),FCA778,Fund,Bank
+112,LEI2345678901234567,Global Innovations Ltd.,Global Innovations,Low,2023-01-03,Active,Prudential Regulation Authority (PRA),PRA889,Principle,Investment
+113,LEI3456789012345678,Corporate Dynamics Ltd.,Corporate Dynamics,High,2022-12-09,Active,Financial Conduct Authority (FCA),FCA990,Fund,Bank
+114,LEI4567890123456789,Elite Holdings Ltd.,Elite Holdings,Medium,2022-11-14,Inactive,Prudential Regulation Authority (PRA),PRA001,Principle,Investment
+115,LEI5678901234567890,Global Strategies Ltd.,Global Strategies,Low,2022-10-19,Active,Financial Conduct Authority (FCA),FCA1122,Agent,Bank

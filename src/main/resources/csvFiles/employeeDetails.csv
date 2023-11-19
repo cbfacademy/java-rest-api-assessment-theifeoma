@@ -1,0 +1,16 @@
+employeeId,firstName,middleName,familyName,email,role,roleId,telephoneNumber
+301,Adam,Johnston,Smith,adam.smith@example.com,Client Services Manager,201,+44 20 1234 5678
+302,Eva,Marie,Brown,eva.brown@example.com,Operations Manager,212,+44 20 8765 4321
+303,Daniel,Joseph,Williams,daniel.williams@example.com,Client Relations Specialist,211,+44 20 3456 7890
+304,Sophia,Grace,Jackson,sophia.jackson@example.com,Marketing Coordinator,204,+44 20 9876 5432
+305,Oliver,Thomas,Green,oliver.green@example.com,Legal Counsel,214,+44 20 2345 6789
+306,Ava,Megan,Miller,ava.miller@example.com,Marketing Coordinator,204,+44 20 8765 4321
+307,Liam,William,Turner,liam.turner@example.com,Operations Manager,212,+44 20 7654 3210
+308,Isabella,Grace,Roberts,isabella.roberts@example.com,Administrative Assistant,208,+44 20 1234 5678
+309,Mason,Andrew,Hill,mason.hill@example.com,Client Services Manager,201,+44 20 2345 6789
+310,Amelia,Elizabeth,White,amelia.white@example.com,Client Services Manager,201,+44 20 3456 7890
+311,Olivia,Thomas,Anderson,olivia.anderson@example.com,Client Relations Specialist,211,+44 20 9876 5432
+312,Lucas,Mia,Baker,lucas.baker@example.com,Operations Manager,212,+44 20 8765 4321
+313,Lily,Aiden,Hall,lily.hall@example.com,Client Relations Specialist,211,+44 20 7654 3210
+314,Liam,Chloe,Ward,liam.ward@example.com,Legal Counsel,214,+44 20 1234 5678
+315,Emma,Emily,Cooper,emma.cooper@example.com,Administrative Assistant,208,+44 20 2345 6789
