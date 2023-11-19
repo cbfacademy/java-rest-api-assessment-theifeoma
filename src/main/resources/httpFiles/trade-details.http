@@ -12,3 +12,15 @@ GET http://localhost:7070/client-trade-details/by-time-of-execution?startDate=20
 
 ###
 GET http://localhost:7070/client-trade-details/by-date-and-clientId?clientId=542&startDate=2023-01-10&endDate=2023-08-30
+
+###
+GET http://localhost:7070/client-trade-details/clients/542/trades/bonds
+
+###
+GET http://localhost:7070/client-trade-details/trades/by-date/Stocks?startDate=2023-01-01&endDate=2023-12-31
+
+###
+GET http://localhost:7070/client-trade-details/trades/by-revenue/Stocks?minRevenue=1000000&maxRevenue=2000000
+
+###
+GET http://localhost:7070/client-trade-details/trades/by-date-and-clientId?clientId=555&startDate=2023-01-01&endDate=2023-12-31
